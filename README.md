@@ -1,2 +1,2 @@
-# springboot
+# Springboot
 Tutorial of springboot
