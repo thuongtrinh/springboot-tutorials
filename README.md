@@ -1,2 +1,2 @@
-# springboot-begin
-tutorial of springboot beginner
+# springboot
+Tutorial of springboot
