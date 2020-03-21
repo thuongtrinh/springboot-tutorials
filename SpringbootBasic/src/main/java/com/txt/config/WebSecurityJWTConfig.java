@@ -41,7 +41,7 @@ public class WebSecurityJWTConfig extends WebSecurityConfigurerAdapter {
 		//http.antMatcher("/restjjwt/**").httpBasic().authenticationEntryPoint(restServicesEntryPoint()).and()
 		//.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
 		http.authorizeRequests()
-			.antMatchers("/").permitAll()
+			.antMatchers("/**").permitAll()
 			.antMatchers(HttpMethod.POST, "/login")
 			.permitAll().anyRequest().authenticated()
 			.and()
