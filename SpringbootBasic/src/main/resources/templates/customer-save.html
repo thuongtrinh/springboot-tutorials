@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Spring Boot</title>
+</head>
+<body>
+	<a th:href="@{/customer-list}">List Customer</a>
+	<br />
+
+	<h1>Add new Customer:</h1>
+	<form th:action="@{/saveCustomer}" method="POST" th:object="${customer}">
+		<table>
+			<tr>
+				<td>Name:</td>
+				<td><input th:field="*{name}" /></td>
+			</tr>
+			<tr>
+				<td>Address:</td>
+				<td><input th:field="*{address}" /></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><input type="submit" value="Submit" /></td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>

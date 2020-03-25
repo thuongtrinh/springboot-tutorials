@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Spring Boot</title>
+<style>
+table, td, tr {
+	border-collapse: collapse;
+	padding: 5px;
+	text-align: center;
+}
+
+th {
+	padding: 10px 30px;
+}
+
+.bgOdd {
+	background: #80808040;
+}
+</style>
+</head>
+<body>
+	<h1>List Customer:</h1>
+	<a th:href="@{/customer-save}">Add Customer</a>
+	<br />
+	<br />
+
+	<table border="1">
+		<tr>
+			<th>No.</th>
+			<th>Id</th>
+			<th>Name</th>
+			<th>Address</th>
+			<th>View</th>
+			<th>Edit</th>
+			<th>Delete</th>
+		</tr>
+		<th:block th:each="customer,state : ${listCustomer}">
+			<tr th:class="${state.odd ? 'bgOdd' : ''}">
+				<td><p th:text="${state.index + 1}"></p></td>
+				<td><p th:text="${customer.id}"></p></td>
+				<td><p th:text="${customer.name}"></p></td>
+				<td><p th:text="${customer.address}"></p></td>
+				<td><a th:href="@{/customer-view/} + ${customer.id}">View</a></td>
+				<td><a th:href="@{/customer-update/} + ${customer.id}">Edit</a></td>
+				<td><a th:href="@{/customerDelete/} + ${customer.id}">Delete</a></td>
+			</tr>
+		</th:block>
+	</table>
+
+</body>
+</html>
