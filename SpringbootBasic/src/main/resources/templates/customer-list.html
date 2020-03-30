@@ -16,6 +16,21 @@ th {
 .bgOdd {
 	background: #80808040;
 }
+
+.pointer-style {
+	cursor: pointer;
+	text-decoration: none;
+}
+
+a[disabled="disabled"] {
+	pointer-events: none;
+	cursor: default;
+	color: gray;
+	pointer-events: none;
+	-webkit-user-select: none; /* Safari */
+	-ms-user-select: none; /* IE 10+ and Edge */
+	user-select: none; /* Standard syntax */
+}
 </style>
 </head>
 <body>
@@ -45,6 +60,15 @@ th {
 				<td><a th:href="@{/customerDelete/} + ${customer.id}">Delete</a></td>
 			</tr>
 		</th:block>
+		<tr>
+			<th colspan="7">
+				<div style="display: flex; justify-content: space-between;">
+					<a class="pointer-style" th:attr="disabled=${page == 0}" th:href="@{/customer-list(page=${page-1},size=${size})}"><< Previous</a>
+					<span th:text="${page + 1}"></span>
+					<a class="pointer-style" th:attr="disabled=${page + 2 > total}" th:href="@{/customer-list(page=${page+1},size=${size})}">Next >></a>
+				</div>
+			</th>
+		</tr>
 	</table>
 
 </body>

@@ -13,6 +13,8 @@ import com.txt.filter.JWTAuthenticationFilter;
 import com.txt.filter.JWTLoginFilter;
 import com.txt.rest.CustomAccessDeniedHandler;
 
+
+// To execute this function need comment code of Admin and User sercurity config
 @Configuration
 @EnableWebSecurity
 public class WebSecurityJWTConfig extends WebSecurityConfigurerAdapter {

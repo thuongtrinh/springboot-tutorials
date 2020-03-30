@@ -6,7 +6,14 @@
 </head>
 <body>
 	<div>
-		<h2>Demo Spring Boot Download File</h2>
+		<h2>1. Demo Spring Boot Login with security</h2>
+		<a th:href="@{/login1}">Login user</a><br />
+		<a th:href="@{/login2}">Login admin</a>
+		<br />
+		<h2>2. Demo Spring Boot List Customer</h2>
+		<a th:href="@{/customer-list}">List Customer</a>
+		<br />
+		<h2>3. Demo Spring Boot Download File</h2>
 		<a href="download1">/downloadFile1</a>
 		<br />
 		<a href="download2">/downloadFile2</a>
@@ -14,7 +21,7 @@
 	</div>
 
 	<div>
-		<h2>Demo Spring Boot Upload File</h2>
+		<h2>4. Demo Spring Boot Upload File</h2>
 		<form method="post" th:action="@{uploadFileDemo}" enctype="multipart/form-data" th:object="${myFile}">
 			File: <input type="file" th:field="*{multipartFile}"><br><br>
 			Description: <input type="text" th:field="*{description}"><br><br>

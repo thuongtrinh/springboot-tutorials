@@ -33,7 +33,7 @@ public class BaseController {
 	@GetMapping({ "/downUpFile", "/" })
 	public String downloadFile(Model model) {
 		model.addAttribute("myFile", new MyFile());
-		return "downUpLoadFile";
+		return "home";
 	}
 
 	@RequestMapping(value = "/download1", method = RequestMethod.GET)
