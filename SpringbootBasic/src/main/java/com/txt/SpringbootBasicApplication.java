@@ -13,7 +13,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 
 @ServletComponentScan
 @SpringBootApplication
-@EnableScheduling
+//@EnableScheduling
 public class SpringbootBasicApplication {
 
 	public static void main(String[] args) {

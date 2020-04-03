@@ -30,7 +30,7 @@ import com.txt.dto.MyFile;
 @Controller
 public class BaseController {
 
-	@GetMapping({ "/downUpFile", "/" })
+	@GetMapping({ "/home", "/" })
 	public String downloadFile(Model model) {
 		model.addAttribute("myFile", new MyFile());
 		return "home";

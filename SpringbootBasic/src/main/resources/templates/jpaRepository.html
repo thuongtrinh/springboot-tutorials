@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Spring Boot</title>
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<style>
+.bgOdd {
+	background: #80808040;
+}
+</style>
+</head>
+<body>
+	<div class="container">
+		<a th:href="@{/home}">Home</a>
+		<br>
+		
+		<div>
+			<h3>I. Query By JpaRepository</h3>
+			<a th:href="@{/getAllArticles}">1. Get all articles</a><br>
+			<a th:href="@{/getArticlesByTitle}">2. Get article list by title</a><br>
+			<a th:href="@{/getArticlesByDistinctCategory }">3. Get article list by distinct of category</a><br>
+			<a th:href="@{/getArticlesByIdGreaterThan }">4. Get article list by id greater than 3</a><br>
+			<a th:href="@{/getArticlesByIdLessThan }">5. Get article list by id less than 5</a><br>
+			<a th:href="@{/getArticlesByIdBetween }">6. Get article list by id between 3 and 5</a><br>
+			<a th:href="@{/getArticlesByTitleNotNull }">7. Get article list by title not null</a><br>
+			<a th:href="@{/getArticlesByTitleNull }">8. Get article list by title null</a><br>
+			<a th:href="@{/getArticlesByTitleLike }">9. Get article list by title like</a><br>
+			<a th:href="@{/getArticlesByTitleNot }">10. Get article list by title not</a><br>
+			<a th:href="@{/getArticleDistinctArticleByTitleOrCategory }">11. Get article list DistinctArticleByTitleOrCategory</a><br>
+			<a th:href="@{/getArticleDistinctByTitleOrCategory }">12. Get article list ArticleDistinctByTitleOrCategory</a><br>
+			
+		</div>
+		<div>
+			<h3>II. Result query with JpaRepository</h3>
+			<textarea rows="20" cols="100" th:text="${articles}"></textarea>
+			<!-- <textarea rows="25" cols="100">[[${articles}]]</textarea> -->
+		</div>
+		<div>
+			<h3>III.Query Creation: Supported keywords inside method names</h3>
+			<img alt="query-creation" th:src="@{image/query-creation.png}">
+		</div>
+	</div>
+</body>
+</html>

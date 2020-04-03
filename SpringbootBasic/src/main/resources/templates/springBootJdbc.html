@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Spring Boot</title>
+<link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body>
+	<div class="container">
+		<a th:href="@{/home}">Home</a>
+		<br>
+		
+		<div>
+			<h3>I. Query By JpaRepository</h3>
+			<a th:href="@{/jdbcGetAllArticles}">1. Get all articles</a><br>
+			<a th:href="@{/jdbcGetArticlesById}">2. Get article by id</a><br>
+			<a th:href="@{/jdbcAddArticle }">3. Add new article</a><br>
+			<a th:href="@{/jdbcUpdateArticle }">4. Update article</a><br>
+			<a th:href="@{/jdbcDeleteArticle/0}">5. Delete article</a><br>
+			
+			
+		<!-- 	<a th:href="@{/jdbcGetArticlesByIdBetween }">6. Delete article by id</a><br> -->
+			
+		</div>
+		<div>
+			<h3>II. Result query with JpaRepository</h3>
+			<textarea rows="20" cols="100" th:text="${articles}"></textarea>
+			<!-- <textarea rows="25" cols="100">[[${articles}]]</textarea> -->
+		</div>
+	</div>
+</body>
+</html>
