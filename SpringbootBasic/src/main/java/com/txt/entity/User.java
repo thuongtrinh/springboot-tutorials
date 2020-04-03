@@ -71,5 +71,4 @@ public class User {
 	public void setRoles(String[] roles) {
 		this.roles = roles;
 	}
-
 }

@@ -43,3 +43,24 @@ INSERT INTO public.articles(article_id, title, category) VALUES
 	(6, 'Stream', 'Java 8');
 
 //-------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS userInfo (
+  username varchar(50) NOT NULL PRIMARY KEY,
+  password varchar(100) NOT NULL,
+  fullname varchar(100) NOT NULL,
+  role varchar(50) NOT NULL,
+  country varchar(100) NOT NULL,
+  enabled smallint NOT NULL
+)  with(oids=false);
+
+
+INSERT INTO userInfo (username, password, fullname, role, country, enabled) VALUES
+	('thuongtx', '$2a$10$eLPcsMMNu8pGa0rKYDZiMOeTQSNYaSqf4pwnBTLFojE7VrZ9yCVV2', 'thuongtrinh', 'ROLE_ADMIN', 'VN', 1),
+	('tungtx', '$2a$10$bwBbZOQhHAIarbS1rkvq9OOAtypXozhZSRwGBLLNyb9BAnoAsXkPO', 'tungtrinh', 'ROLE_USER', 'VN', 1); 
+
+--a123456: $2a$10$eLPcsMMNu8pGa0rKYDZiMOeTQSNYaSqf4pwnBTLFojE7VrZ9yCVV2
+--b123456: $2a$10$bwBbZOQhHAIarbS1rkvq9OOAtypXozhZSRwGBLLNyb9BAnoAsXkPO
+
+	
+	
+	

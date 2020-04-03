@@ -2,13 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Login admin</title>
 </head>
 <body>
 	<div>
 		<h2>Form Login to admin</h2>
 		<h4 style="color: red" th:text="${message}"></h4>
-		<form name="form-login-admin" th:action="@{/admin/j_spring_security_login}" method="post">
+		<form name="form-login-admin" th:action="@{/admin/login}" method="post">
 			<table>
 				<tr>
 					<td>Username:</td>

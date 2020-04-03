@@ -17,11 +17,14 @@ import org.springframework.security.web.session.HttpSessionEventPublisher;
 @Order(1)
 public class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
 
-//	@Bean
-//	public BCryptPasswordEncoder passwordEncoder(){
-//		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-//		return bCryptPasswordEncoder;
-//	}
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+
+	@Bean
+	public BCryptPasswordEncoder passwordEncoder() {
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		return passwordEncoder;
+	}
 
 //	@Bean
 //	public HttpSessionEventPublisher httpSessionEventPublisher() {
@@ -32,15 +35,20 @@ public class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
 //	private CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
 
 	@Autowired
-	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//		auth.inMemoryAuthentication().passwordEncoder(passwordEncoder()).withUser("abc").password("$2a$04$Q2Cq0k57zf2Vs/n3JXwzmerql9RzElr.J7aQd3/Sq0fw/BdDFPAj.").roles("ADMIN");
+	public void configure(AuthenticationManagerBuilder auth) throws Exception {
 //		auth.inMemoryAuthentication().passwordEncoder(NoOpPasswordEncoder.getInstance()).withUser("def").password("123456").roles("USER");
 //		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 
-		auth.inMemoryAuthentication()
-			.withUser("thuongtx").password("{noop}123456").roles("USER")
+		auth.inMemoryAuthentication().passwordEncoder(passwordEncoder)
+			.withUser("smith").password("$2a$10$JwATmL/k0dBJCMmW/rLwBOlja.0ppOJvMEdhjx2fQ9qgeXxAb./AW").roles("ADMIN");
+		
+		auth.inMemoryAuthentication().passwordEncoder(passwordEncoder)
+			.withUser("alice").password("$2a$10$JwATmL/k0dBJCMmW/rLwBOlja.0ppOJvMEdhjx2fQ9qgeXxAb./AW").roles("USER");
+
+		/*auth.inMemoryAuthentication()
+			.withUser("smith").password("{noop}123456").roles("ADMIN")
 			.and()
-			.withUser("tungtx").password("{noop}123456").roles("ADMIN");
+			.withUser("alice").password("{noop}123456").roles("USER");*/
 	}
 
 	@Override
@@ -51,17 +59,17 @@ public class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		//http.authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN");
 		//http.authorizeRequests().antMatchers("/admin/**").authenticated();
-		
+
 		http.antMatcher("/admin/**").authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN");
 		http.authorizeRequests().and().formLogin()
 			.loginPage("/login2")
-			.loginProcessingUrl("/admin/j_spring_security_login")
+			.loginProcessingUrl("/admin/login")
 			.defaultSuccessUrl("/admin/admin")
 			.failureUrl("/login2?message=error")
 //			.failureHandler(customAuthenticationFailureHandler)
 			.usernameParameter("username")
 			.passwordParameter("password")
 			.and().exceptionHandling().accessDeniedPage("/403")
-			.and().logout().logoutUrl("/admin/j_spring_security_logout").logoutSuccessUrl("/login2?message=logout");
+			.and().logout().logoutUrl("/admin/logout").logoutSuccessUrl("/login2?message=logout");
 	}
 }

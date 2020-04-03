@@ -16,13 +16,14 @@ public class UserSecurityConfig extends WebSecurityConfigurerAdapter {
 		// config for form login user
 		http.authorizeRequests().antMatchers("/user/**").hasRole("USER")
 			.and().formLogin()
-			.loginProcessingUrl("/j_spring_security_login")
+			.loginProcessingUrl("/login") // j_spring_security_login
 			.loginPage("/login1")
 			.defaultSuccessUrl("/user")
 			.failureUrl("/login1?message=error")//
 			.usernameParameter("username").passwordParameter("password")
 			.and().exceptionHandling().accessDeniedPage("/403")
-			.and().logout().logoutUrl("/j_spring_security_logout").logoutSuccessUrl("/login1?message=logout");
+			.and().logout().logoutUrl("/logout") // j_spring_security_logout
+			.logoutSuccessUrl("/login1?message=logout");
 
 		http.rememberMe().key("uniqueAndSecret").tokenValiditySeconds(1296000);
 	}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Spring Boot</title>
+<link rel="stylesheet" type="text/css" href="/css/main.css">
+<link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body class="container">
+	<h1>List Article:</h1>
+	<div>
+		Logged in userInfo: 
+		<b th:inline="text" class="user">[[${#httpServletRequest.remoteUser}]] </b>
+		<form th:action="@{/app-logout}" method="POST">
+			<p>
+				<input type="submit" value="Logout" />
+			</p>
+		</form>
+	</div>
+	<br />
+
+	<table border="1">
+		<tr>
+			<th>No.</th>
+			<th>Id</th>
+			<th>Category</th>
+			<th>Title</th>
+		</tr>
+		<th:block th:each="article,state : ${articleList}">
+			<tr th:class="${state.odd ? 'bgOdd' : ''}">
+				<td><p th:text="${state.index + 1}"></p></td>
+				<td><p th:text="${article.articleId}"></p></td>
+				<td><p th:text="${article.category}"></p></td>
+				<td><p th:text="${article.title}"></p></td>
+			</tr>
+		</th:block>
+	</table>
+
+</body>
+</html>
