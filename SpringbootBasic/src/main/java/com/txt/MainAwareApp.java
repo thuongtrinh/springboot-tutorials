@@ -22,8 +22,8 @@ public class MainAwareApp {
 
 	public static void main(String [] args) {
 		//Get encode of BCryptPasswordEncoder
-		//thuongtx - a123456: $2a$10$eLPcsMMNu8pGa0rKYDZiMOeTQSNYaSqf4pwnBTLFojE7VrZ9yCVV2
-		//tungtx - b123456: $2a$10$bwBbZOQhHAIarbS1rkvq9OOAtypXozhZSRwGBLLNyb9BAnoAsXkPO
+		//admin: thuongtx - a123456: $2a$10$eLPcsMMNu8pGa0rKYDZiMOeTQSNYaSqf4pwnBTLFojE7VrZ9yCVV2
+		//user:  tungtx   - b123456: $2a$10$bwBbZOQhHAIarbS1rkvq9OOAtypXozhZSRwGBLLNyb9BAnoAsXkPO
 		//smith - alice - 123456:  $2a$10$4tHO9fcJwFISJ2T/xldeM.H2K8Osv9PF2C1l4FejxDvhO6guL/xhG
 
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();

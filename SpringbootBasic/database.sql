@@ -25,10 +25,9 @@ values(1, 'thuongtx', 'HCM-VN');
 //-------------------------------------------------------
 
 CREATE TABLE public.articles (
-	article_id serial,
+	article_id serial PRIMARY KEY,
 	title VARCHAR(200) NOT NULL,
-	category VARCHAR(100) NOT NULL,
-	PRIMARY KEY (article_id)
+	category VARCHAR(100) NOT NULL
 )
 WITH (
     OIDS = FALSE
@@ -61,6 +60,3 @@ INSERT INTO userInfo (username, password, fullname, role, country, enabled) VALU
 --a123456: $2a$10$eLPcsMMNu8pGa0rKYDZiMOeTQSNYaSqf4pwnBTLFojE7VrZ9yCVV2
 --b123456: $2a$10$bwBbZOQhHAIarbS1rkvq9OOAtypXozhZSRwGBLLNyb9BAnoAsXkPO
 
-	
-	
-	
