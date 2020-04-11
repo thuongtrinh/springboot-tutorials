@@ -131,4 +131,9 @@ public class BaseController {
 
 		return folderUpload;
 	}
+
+	@GetMapping("/testRestAPICors")
+	public String testCORS(Model model) {
+		return "test-cors";
+	}
 }

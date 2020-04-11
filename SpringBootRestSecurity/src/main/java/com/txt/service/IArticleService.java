@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.security.access.annotation.Secured;
 
 import com.txt.entity.Article;
+import com.txt.entity.ArticleXml;
 
 public interface IArticleService {
 	@Secured({ "ROLE_ADMIN", "ROLE_USER" })
@@ -21,4 +22,7 @@ public interface IArticleService {
 
 	@Secured({ "ROLE_ADMIN" })
 	void deleteArticle(int articleId);
+
+	@Secured({ "ROLE_ADMIN", "ROLE_USER" })
+	List<ArticleXml> getAllArticlesXml();
 }

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Spring Boot Security</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+	<h2>Test CORS web service with Restfull API</h2>
+	<pre>Change port to 8585 to test</pre>
+	
+	<a th:href="@{/}">Back To Home Page</a>
+	<br><br>
+
+	<script type="text/javascript">
+
+		var username = "thuongtx"; //$("input#username").val();
+		var password = "a123456";  //$("input#password").val();
+
+		function make_base_auth(user, password) {
+			var tok = user + ':' + password;
+			//var hash = Base64.encode(tok);
+			var hash = btoa(tok); 
+			return "Basic " + hash;
+		}
+
+		$.ajaxSetup({
+			headers: { 
+				"Content-Type": "application/json", 
+				"Authorization": make_base_auth(username, password)
+			}
+		});
+
+		function getDataCORS() {
+			$("#text-content").text("");
+			console.log("main function");
+			console.log("ajax request to the resource which will require cors enabled");
+			$.ajax({
+				//url : "http://localhost:8080/spring-app/article/details",
+				url : "http://localhost:8080/jersey/article/all",
+				dataType: 'json',
+				type: 'GET',
+				//headers: {"Authorization": "Basic dGh1b25ndHg6YTEyMzQ1Ng=="},
+				/* headers: {
+					"Content-Type": "application/json", 
+					"Authorization": "Basic " + btoa(username+":"+password),
+				}, */
+				/* beforeSend : function(xhr) {
+					xhr.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
+				}, */
+				success : function(data) {
+					console.log("log response on success");
+					console.log(data);
+					$("#text-content").text(JSON.stringify(data, null, 4));
+				},
+				error : function(XMLHttpRequest, textStatus, errorThrown) {
+					alert(textStatus, errorThrown);
+				},
+			});
+		}
+
+		function addNewDataCORS() {
+			$("#text-content").text("");
+			var obj = {
+				"title": "add new CORS",
+				"category": "category Add new CORS"
+			};
+
+			console.log("main function");
+			console.log("ajax request to the resource which will require cors enabled");
+			$.ajax({
+				url : "http://localhost:8080/jersey/article/add",
+				//dataType: 'application/json',
+				type: 'POST',
+				data: JSON.stringify(obj),
+				success : function(data) {
+					console.log("log response add new on success");
+					console.log(data);
+					$("#text-content").text("Add new success");
+				},
+				error : function(XMLHttpRequest, textStatus, errorThrown) {
+					alert(textStatus, errorThrown);
+				},
+			});
+		}
+
+		function deleteDataCORS(id) {
+			console.log("main function");
+			console.log("ajax request to the resource which will require cors enabled");
+			$.ajax({
+				url : "http://localhost:8080/jersey/article/" + id,
+				type: 'DELETE',
+				success : function(data) {
+					console.log(data);
+					$("#text-content").text("Delete success");
+				},
+				error : function(XMLHttpRequest, textStatus, errorThrown) {
+					alert(textStatus, errorThrown);
+				},
+			});
+		}
+
+		function updateDataCORS() {
+			$("#text-content").text("");
+			var obj = {
+				"articleId": "31",
+				"title": "title CORS update",
+				"category": "category CORS update"
+			};
+
+			console.log("main function");
+			console.log("ajax request to the resource which will require cors enabled");
+			$.ajax({
+				url : "http://localhost:8080/jersey/article/update",
+				type: 'PUT',
+				data: JSON.stringify(obj),
+				success : function(data) {
+					console.log(data);
+					$("#text-content").text("Update success");
+				},
+				error : function(XMLHttpRequest, textStatus, errorThrown) {
+					alert(textStatus, errorThrown);
+				},
+			});
+		}
+	</script>
+	
+	<div>
+		<input type="button" value="Get data with CORS" onclick="getDataCORS()"><br><br>
+		<input type="button" value="Add new data with CORS" onclick="addNewDataCORS()"><br><br>
+		<input type="button" value="Delete data with CORS, id is 30" onclick="deleteDataCORS('30')"><br><br>
+		<input type="button" value="Update data with CORS, id is 31" onclick="updateDataCORS()"><br><br>
+	</div>
+	<div>
+		<h3>Result:</h3>
+		<textarea rows="20" cols="100" id="text-content"></textarea>
+	</div>
+</body>
+</html>

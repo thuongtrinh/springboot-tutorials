@@ -1,18 +1,25 @@
 package com.txt.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.txt.dao.IArticleDao;
 import com.txt.entity.Article;
+import com.txt.entity.ArticleXml;
+import com.txt.repository.ArticleRespository;
 
 @Service
 public class ArticleService implements IArticleService {
 
 	@Autowired
 	private IArticleDao articleDAO;
+
+	@Autowired
+	private ArticleRespository articleRepository;
 
 	@Override
 	public Article getArticleById(int articleId) {
@@ -43,5 +50,17 @@ public class ArticleService implements IArticleService {
 	@Override
 	public void deleteArticle(int articleId) {
 		articleDAO.deleteArticle(articleId);
+	}
+
+	@Override
+	public List<ArticleXml> getAllArticlesXml() {
+		List<ArticleXml> list = new ArrayList<>();
+		articleRepository.findAll().forEach(e -> {
+			ArticleXml articleXml = new ArticleXml();
+			BeanUtils.copyProperties(e, articleXml);
+			list.add(articleXml);
+		});
+
+		return list;
 	}
 }
