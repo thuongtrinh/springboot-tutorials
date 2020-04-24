@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Login form</title>
+</head>
+
+<body>
+	<div>
+		<h2>Form Login:</h2>
+		<a href="https://accounts.google.com/o/oauth2/auth?scope=email&redirect_uri=https://localhost:8080/SocialLogin/login-google&response_type=code
+			&client_id=800107701071-j68kt7c5e16qk2j6tfm30eildcsuca8i.apps.googleusercontent.com&approval_prompt=force">Login With Gmail</a> 
+		<br />
+		<a href="https://www.facebook.com/dialog/oauth?client_id=357553075203445&redirect_uri=https://localhost:8080/SocialLogin/login-facebook">Login Facebook</a>
+		<br/>
+		<a href="https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=863ub1cgq4e5zn&state=123456789
+			&redirect_uri=https://localhost:8080/SocialLogin/login-linkedin&scope=r_liteprofile%20r_emailaddress%20w_member_social">Login With LinkedIn</a>
+		<br/>
+
+		<h4 style="color: red" th:text="${param.google}"></h4>
+		<h4 style="color: red" th:text="${param.message}"></h4>
+
+		<form name="form-login" th:action="@{/login}" method="post">
+			<table>
+				<tr>
+					<td>Username:</td>
+					<td><input type="text" name="username" /></td>
+				</tr>
+				<tr>
+					<td>Password:</td>
+					<td><input type="password" name="password" /></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>
+						<input type="submit" name="submit" value="Submit"/>
+					</td>
+				</tr>
+			</table>
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+		</form>
+	</div>
+</body>
+</html>

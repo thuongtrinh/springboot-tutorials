@@ -1,0 +1,48 @@
+server:
+  servlet:
+    context-path: /SocialLogin
+    port: 8080
+
+# config SSL/TLS
+# "%JAVA_HOME%\bin\keytool" -genkey -alias tomcat -keyalg RSA -keystore springboot.keystore
+server.port: 8080
+server.ssl.key-store: src/main/resources/springboot.keystore
+server.ssl.key-store-password: txt12345
+server.ssl.keyAlias: tomcat
+
+# config google social
+google:
+  app:
+    id: 800107701071-j68kt7c5e16qk2j6tfm30eildcsuca8i.apps.googleusercontent.com
+    secret: QpPsPOan2VCoeJuptsYmsTYT
+  redirect:
+    uri: https://localhost:8080/SocialLogin/login-google
+  link:
+    get:
+      token: https://accounts.google.com/o/oauth2/token
+      user_info: https://www.googleapis.com/oauth2/v1/userinfo?access_token=
+
+# config facebook social
+facebook:
+  app:
+    id: 357553075203445
+    secret: f27266c6153fb0586f4406d5c7bf7917
+  redirect:
+    uri: https://localhost:8080/SocialLogin/login-facebook
+  link:
+    get:
+      token: https://graph.facebook.com/oauth/access_token?client_id=%s&client_secret=%s&redirect_uri=%s&code=%s
+
+# config linkedin
+linkedin:
+  client:
+    id: 863ub1cgq4e5zn
+    secret: 3km7llAQ1SIUOhVJ
+  redirect:
+    uri: https://localhost:8080/SocialLogin/login-linkedin
+  link:
+    get:
+      token: https://www.linkedin.com/oauth/v2/accessToken
+      user_info: https://api.linkedin.com/v1/people/~?format=json&oauth2_access_token=
+  grant_type: authorization_code
+

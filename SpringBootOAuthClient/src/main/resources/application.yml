@@ -1,0 +1,21 @@
+server:
+  servlet:
+    context-path: /OAuthDemo
+    session:
+        cookie:
+          name: UISESSION
+  port: 8080
+
+github:
+  client:
+    clientId: 03afe7601faad4de2bad
+    clientSecret: 6e1c4e9f5ad6f7d2b2538084b66bef793908b246
+    accessTokenUri: https://github.com/login/oauth/access_token
+    userAuthorizationUri: https://github.com/login/oauth/authorize
+    clientAuthenticationScheme: form
+  resource:
+    userInfoUri: https://api.github.com/user
+
+# accessTokenUri is the URI to obtain the Access Tokens
+# userAuthorizationUri is the authorization URI that users will be redirected to
+# userInfoUri the URI of user endpoint to obtain current user details
