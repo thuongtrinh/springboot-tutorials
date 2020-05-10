@@ -60,3 +60,15 @@ INSERT INTO userInfo (username, password, fullname, role, country, enabled) VALU
 --a123456: $2a$10$eLPcsMMNu8pGa0rKYDZiMOeTQSNYaSqf4pwnBTLFojE7VrZ9yCVV2
 --b123456: $2a$10$bwBbZOQhHAIarbS1rkvq9OOAtypXozhZSRwGBLLNyb9BAnoAsXkPO
 
+
+
+CREATE TABLE  public.student(
+   ID SERIAL,  
+   NAME varchar(100) NOT NULL,
+   BRANCH varchar(255) NOT NULL,
+   PERCENTAGE integer NOT NULL,  
+   PHONE integer NOT NULL,
+   EMAIL varchar(255) NOT NULL,
+   CONSTRAINT groups_pkey PRIMARY KEY (ID)
+);
+
