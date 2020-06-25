@@ -1,4 +1,4 @@
-package stackjava.com.sbjwt;
+package com.txt.sbjwt;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
