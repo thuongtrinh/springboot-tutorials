@@ -73,7 +73,7 @@ public class TokenAuthenticationService {
 		// This line will throw an exception if it is not a signed JWS (as expected)
 		Claims claims = Jwts.parser()
 				.setSigningKey(DatatypeConverter.parseBase64Binary(SECRET))
-				.parseClaimsJws(jwt)
+				.parseClaimsJws(jwt.substring(7))
 				.getBody();
 		
 		return claims;
