@@ -91,6 +91,8 @@ public class SpringBootRedisApplication implements CommandLineRunner {
 		System.out.println(userDAO.getUserName());
 		userDAO.deleteUser();
 		System.out.println(userDAO.getUserName());
+		userDAO.updateUserName("user003");
+		System.out.println(userDAO.getUserName());
 
 		// RedisTemplate
 		listRedisTemplate();
