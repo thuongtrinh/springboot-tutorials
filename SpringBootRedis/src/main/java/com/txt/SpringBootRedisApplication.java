@@ -49,7 +49,7 @@ public class SpringBootRedisApplication implements CommandLineRunner {
 		friendDAO.addFriend(p2);
 
 		System.out.println("Number of friends: " + friendDAO.getNumberOfFriends());
-		System.out.println(friendDAO.getFriendAtIndex(1));
+		System.out.println(friendDAO.getFriendAtIndex(11));
 
 		friendDAO.removeFriend(p1);
 		long size = friendDAO.getNumberOfFriends();
@@ -95,7 +95,7 @@ public class SpringBootRedisApplication implements CommandLineRunner {
 		System.out.println(userDAO.getUserName());
 
 		// RedisTemplate
-		listRedisTemplate();
+//		listRedisTemplate();
 	}
 
 	private void listRedisTemplate() {
