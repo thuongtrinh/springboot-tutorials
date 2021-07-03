@@ -1,0 +1,17 @@
+com\txt\wsdl\AddArticleRequest.class
+com\txt\wsdl\GetAllArticlesResponse.class
+com\txt\MySpringApplicationClient.class
+com\txt\wsdl\DeleteArticleRequest.class
+com\txt\wsdl\DeleteArticleResponse.class
+com\txt\WSConfigClient.class
+com\txt\ArticleClient.class
+com\txt\wsdl\ArticleInfo.class
+com\txt\wsdl\AddArticleResponse.class
+com\txt\wsdl\UpdateArticleResponse.class
+com\txt\wsdl\GetAllArticlesRequest.class
+com\txt\wsdl\UpdateArticleRequest.class
+com\txt\wsdl\package-info.class
+com\txt\wsdl\GetArticleByIdRequest.class
+com\txt\wsdl\ServiceStatus.class
+com\txt\wsdl\GetArticleByIdResponse.class
+com\txt\wsdl\ObjectFactory.class
