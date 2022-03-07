@@ -32,6 +32,7 @@ hs_err_pid*
 **/**/.settings/**
 **/**/.classpath
 **/**/.project
+**/**/logs/**
 
 ### Maven ###
 HELP.md
