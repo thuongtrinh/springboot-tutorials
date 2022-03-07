@@ -29,11 +29,20 @@ hs_err_pid*
 */.settings/
 */.idea/
 
+**/**/.settings/**
+**/**/.classpath
+**/**/.project
+
 ### Maven ###
 HELP.md
 /target/
 /bin/
 !.mvn/wrapper/maven-wrapper.jar
+**/**/.mvn/**
+**/**/target/**
+**/**/bin/**
+**/**/mvnw
+**/**/mvnw.cmd
 
 ### Gradle ###
 .gradle
