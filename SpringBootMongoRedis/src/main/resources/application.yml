@@ -1,0 +1,10 @@
+spring:
+  cache:
+    type: redis
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: false
+
+caching:
+  spring:
+    defaultTtlTime: ${CACHING_DEFAULT_TIME_TO_LIVE} # minutes
