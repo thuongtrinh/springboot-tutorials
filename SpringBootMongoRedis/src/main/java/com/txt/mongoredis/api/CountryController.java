@@ -1,4 +1,4 @@
-package com.txt.mongoredis.controller;
+package com.txt.mongoredis.api;
 
 import com.txt.mongoredis.dto.CountryDTO;
 import com.txt.mongoredis.dto.common.ResponseDTO;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController()
 @RequestMapping("/api/country")
-@Tag(name = "Country", description = "Country")
+@Tag(name = "Country Controller", description = "Country")
 public class CountryController  {
 
     @Autowired
