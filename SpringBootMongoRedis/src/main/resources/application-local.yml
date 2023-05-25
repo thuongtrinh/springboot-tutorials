@@ -2,13 +2,18 @@ server:
   port: 8085
 
 spring:
-#  redis:
-#    url: redis://localhost:6379
+  cache:
+    type: redis
+  redis:
+    url: redis://localhost:6379
+#    password: ${REDIS_KEY}
+#    port: ${REDIS_PORT}
+    ssl: false
   data:
     mongodb:
       uri: mongodb://root:123456@localhost:27017
       #mongodb+srv://root:123456@localhost
-      #mongodb+srv://mongosvc:67G4joKF@db-nprd.beiee.mongodb.net
+      #mongodb+srv://mongosvc:54T5joFG@db-prod.acc.mongodb.net
       #mongodb://localhost:27017/liquibasemongoredis
       options: retryWrites=true&w=majority
       dbfirst:

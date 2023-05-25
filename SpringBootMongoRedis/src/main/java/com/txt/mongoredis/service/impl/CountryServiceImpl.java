@@ -23,7 +23,7 @@ public class CountryServiceImpl implements CountryService {
     private CountryRepository countryRepository;
 
     @Override
-//    @Cacheable(value = "countries")
+    @Cacheable(value = "countries")
     public ResponseDTO findAll() {
         List<Country> queryResult = countryRepository.findAllByOrderByName();
         List<CountryDTO> countryDTOList =
