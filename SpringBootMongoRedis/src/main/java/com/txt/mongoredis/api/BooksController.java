@@ -3,6 +3,8 @@ package com.txt.mongoredis.api;
 import com.txt.mongoredis.dto.common.ResponseDTO;
 import com.txt.mongoredis.entities.mongodb.dbfirst.Books;
 import com.txt.mongoredis.repositories.mongodb.dbfirst.BooksRepository;
+import com.txt.mongoredis.track.TrackActivity;
+import com.txt.mongoredis.utils.ActivityLogType;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -41,6 +43,7 @@ public class BooksController {
             @ApiResponse(responseCode = "200", description = "Indicates the requested were returned."),
             @ApiResponse(responseCode = "500", description = "Wrong or Missing data in request params. 6 of them are: page, size, sort, order")})
     @GetMapping(path = "/api/v1/books/get-books", produces = "application/json")
+    @TrackActivity(type = ActivityLogType.USER_BOOK_ACTION)
     public ResponseDTO<Books> getBooks(
             @Parameter(hidden = true) @RequestParam Map<String, String> allRequestParams) throws Exception {
         ResponseDTO responseDTO = new ResponseDTO();
