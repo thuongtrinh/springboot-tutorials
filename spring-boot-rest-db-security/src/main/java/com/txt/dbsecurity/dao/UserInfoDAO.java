@@ -2,8 +2,8 @@ package com.txt.dbsecurity.dao;
 
 import com.txt.dbsecurity.entities.UserInfo;
 
-public interface UserInfoDao {
+public interface UserInfoDAO {
 
-	UserInfo getActiveUser(String userName);
+    UserInfo getActiveUser(String userName);
 
 }

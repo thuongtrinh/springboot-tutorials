@@ -1,12 +1,10 @@
 package com.txt.dbsecurity.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import com.txt.dbsecurity.dao.ArticleDao;
+import com.txt.dbsecurity.dao.ArticleDAO;
 import com.txt.dbsecurity.entities.Article;
 import com.txt.dbsecurity.service.ArticleService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +14,7 @@ import com.txt.dbsecurity.repositories.ArticleRespository;
 public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
-    private ArticleDao articleDAO;
+    private ArticleDAO articleDAO;
 
     @Autowired
     private ArticleRespository articleRepository;

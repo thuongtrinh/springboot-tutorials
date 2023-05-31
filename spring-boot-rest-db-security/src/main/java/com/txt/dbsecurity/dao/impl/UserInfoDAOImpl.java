@@ -6,17 +6,17 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
+import com.txt.dbsecurity.dao.UserInfoDAO;
 import com.txt.dbsecurity.entities.UserInfo;
 import org.springframework.stereotype.Repository;
 
 @Repository
 @Transactional
-public class UserInfoDaoImpl implements com.txt.dbsecurity.dao.UserInfoDao {
+public class UserInfoDAOImpl implements UserInfoDAO {
 
     @PersistenceContext
     private EntityManager entityManager;
 
-    @SuppressWarnings("unchecked")
     @Override
     public UserInfo getActiveUser(String userName) {
         UserInfo userInfo = null;

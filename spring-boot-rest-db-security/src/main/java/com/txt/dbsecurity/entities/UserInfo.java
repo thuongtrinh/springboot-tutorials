@@ -1,6 +1,8 @@
 package com.txt.dbsecurity.entities;
 
 import lombok.Data;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.io.Serializable;
 
@@ -35,4 +37,8 @@ public class UserInfo implements Serializable {
     @Column(name = "enabled")
     private short enabled;
 
+    @Override
+    public String toString() {
+        return ReflectionToStringBuilder.toString(this, ToStringStyle.JSON_STYLE);
+    }
 }

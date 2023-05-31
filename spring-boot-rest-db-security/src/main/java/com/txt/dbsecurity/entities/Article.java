@@ -1,6 +1,8 @@
 package com.txt.dbsecurity.entities;
 
 import lombok.Data;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.io.Serializable;
 
@@ -29,4 +31,8 @@ public class Article implements Serializable {
     @Column(name = "category")
     private String category;
 
+    @Override
+    public String toString() {
+        return ReflectionToStringBuilder.toString(this, ToStringStyle.JSON_STYLE);
+    }
 }

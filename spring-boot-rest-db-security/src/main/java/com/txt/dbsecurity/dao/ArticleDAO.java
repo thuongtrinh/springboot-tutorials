@@ -5,7 +5,7 @@ import com.txt.dbsecurity.entities.Article;
 
 import java.util.List;
 
-public interface ArticleDao {
+public interface ArticleDAO {
 
     List<Article> getAllArticles();
 

@@ -6,19 +6,18 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
-import com.txt.dbsecurity.dao.ArticleDao;
+import com.txt.dbsecurity.dao.ArticleDAO;
 import org.springframework.stereotype.Repository;
 
 import com.txt.dbsecurity.entities.Article;
 
 @Repository
 @Transactional
-public class ArticleDaoImpl implements ArticleDao {
+public class ArticleDAOImpl implements ArticleDAO {
 
     @PersistenceContext
     private EntityManager entityManager;
 
-    @SuppressWarnings("unchecked")
     @Override
     public List<Article> getAllArticles() {
         String hql = "select u from Article u order by articleId";
