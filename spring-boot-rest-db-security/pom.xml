@@ -4,10 +4,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.txt</groupId>
-	<artifactId>SpringBootRestSecurity</artifactId>
+	<artifactId>spring-boot-rest-db-security</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<name>SpringBootRestSecurity</name>
+	<name>SpringBoot rest security management user from database</name>
 	<description> Spring Boot Rest Security</description>
 
 	<parent>
