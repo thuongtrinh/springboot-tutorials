@@ -15,25 +15,25 @@ import com.txt.dbsecurity.service.AppUserDetailsService;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
-public class RestSecurityConfig extends WebSecurityConfigurerAdapter { 
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-	@Autowired
-	private AppUserDetailsService userDetailService;
+    @Autowired
+    private AppUserDetailsService userDetailService;
 
-	@Autowired
-	private AppAuthenticationEntryPoint authenticationEntryPoint;
+    @Autowired
+    private AppAuthenticationEntryPoint authenticationEntryPoint;
 
-	@Autowired
-	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		auth.userDetailsService(userDetailService).passwordEncoder(passwordEncoder);
-	}
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        auth.userDetailsService(userDetailService).passwordEncoder(passwordEncoder);
+    }
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable().authorizeRequests().antMatchers("/user/**").hasAnyRole("ADMIN", "USER")
-			.and().httpBasic()
-			.realmName("MY APP REALM 111")
-			.authenticationEntryPoint(authenticationEntryPoint);
-	}
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable().authorizeRequests().antMatchers("/user/**").hasAnyRole("ADMIN", "USER")
+                .and().httpBasic()
+                .realmName("MY APP REALM 111")
+                .authenticationEntryPoint(authenticationEntryPoint);
+    }
 }

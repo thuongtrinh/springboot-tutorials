@@ -11,18 +11,18 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.txt.dbsecurity.dao.UserInfoDao;
-import com.txt.dbsecurity.entity.UserInfo;
+import com.txt.dbsecurity.dao.impl.UserInfoDaoImpl;
+import com.txt.dbsecurity.entities.UserInfo;
 
 @Service
 public class AppUserDetailsService implements UserDetailsService {
 
 	@Autowired
-	private UserInfoDao userInfoDao;
+	private UserInfoDaoImpl userInfoDaoImpl;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		UserInfo userInfo = userInfoDao.getActiveUser(username);
+		UserInfo userInfo = userInfoDaoImpl.getActiveUser(username);
 		UserDetails userDetails = null;
 		
 		if(userInfo != null){
