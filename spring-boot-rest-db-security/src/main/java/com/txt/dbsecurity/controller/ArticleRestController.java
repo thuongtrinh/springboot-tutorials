@@ -1,4 +1,4 @@
-package com.txt.controller;
+package com.txt.dbsecurity.controller;
 
 import java.util.List;
 
@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.txt.entity.Article;
-import com.txt.service.IArticleService;
+import com.txt.dbsecurity.entity.Article;
+import com.txt.dbsecurity.service.IArticleService;
 
 @RestController
 @RequestMapping(value = "user")

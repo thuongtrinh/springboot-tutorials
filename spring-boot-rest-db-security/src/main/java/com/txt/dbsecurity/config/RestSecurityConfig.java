@@ -1,4 +1,4 @@
-package com.txt.config;
+package com.txt.dbsecurity.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -9,7 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import com.txt.service.AppUserDetailsService;
+import com.txt.dbsecurity.service.AppUserDetailsService;
 
 
 @Configuration

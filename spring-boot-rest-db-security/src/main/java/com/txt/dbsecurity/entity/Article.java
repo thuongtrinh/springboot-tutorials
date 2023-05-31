@@ -1,4 +1,4 @@
-package com.txt.entity;
+package com.txt.dbsecurity.entity;
 
 import java.io.Serializable;
 

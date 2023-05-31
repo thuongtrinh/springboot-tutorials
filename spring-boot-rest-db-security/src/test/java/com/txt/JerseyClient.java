@@ -14,7 +14,7 @@ import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.glassfish.jersey.jackson.JacksonFeature;
 
-import com.txt.entity.Article;
+import com.txt.dbsecurity.entity.Article;
 
 public class JerseyClient {
 

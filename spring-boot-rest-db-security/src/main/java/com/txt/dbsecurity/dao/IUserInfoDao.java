@@ -1,6 +1,6 @@
-package com.txt.dao;
+package com.txt.dbsecurity.dao;
 
-import com.txt.entity.UserInfo;
+import com.txt.dbsecurity.entity.UserInfo;
 
 public interface IUserInfoDao {
 

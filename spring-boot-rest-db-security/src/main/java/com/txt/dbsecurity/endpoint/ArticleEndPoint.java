@@ -1,7 +1,6 @@
-package com.txt.endpoint;
+package com.txt.dbsecurity.endpoint;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -18,13 +17,11 @@ import javax.ws.rs.core.Response.Status;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.txt.entity.Article;
-import com.txt.entity.ArticleXml;
-import com.txt.service.IArticleService;
+import com.txt.dbsecurity.entity.Article;
+import com.txt.dbsecurity.service.IArticleService;
 
 @Component
 @Path("/article")

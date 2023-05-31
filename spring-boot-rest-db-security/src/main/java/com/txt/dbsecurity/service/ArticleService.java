@@ -1,16 +1,16 @@
-package com.txt.service;
+package com.txt.dbsecurity.service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.txt.dbsecurity.dao.IArticleDao;
+import com.txt.dbsecurity.entity.Article;
+import com.txt.dbsecurity.entity.ArticleXml;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.txt.dao.IArticleDao;
-import com.txt.entity.Article;
-import com.txt.entity.ArticleXml;
-import com.txt.repository.ArticleRespository;
+import com.txt.dbsecurity.repository.ArticleRespository;
 
 @Service
 public class ArticleService implements IArticleService {

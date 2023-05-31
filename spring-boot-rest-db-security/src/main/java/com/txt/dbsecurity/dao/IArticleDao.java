@@ -1,8 +1,8 @@
-package com.txt.dao;
+package com.txt.dbsecurity.dao;
 
 import java.util.List;
 
-import com.txt.entity.Article;
+import com.txt.dbsecurity.entity.Article;
 
 public interface IArticleDao {
 

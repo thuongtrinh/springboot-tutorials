@@ -1,10 +1,9 @@
-package com.txt.repository;
+package com.txt.dbsecurity.repository;
 
 import java.util.List;
 
+import com.txt.dbsecurity.entity.Article;
 import org.springframework.data.repository.CrudRepository;
-
-import com.txt.entity.Article;
 
 public interface ArticleRespository extends CrudRepository<Article, Long> {
 

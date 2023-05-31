@@ -1,4 +1,4 @@
-package com.txt.dao;
+package com.txt.dbsecurity.dao;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
-import com.txt.entity.Article;
+import com.txt.dbsecurity.entity.Article;
 
 @Repository
 @Transactional

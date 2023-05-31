@@ -1,11 +1,10 @@
-package com.txt.service;
+package com.txt.dbsecurity.service;
 
 import java.util.List;
 
+import com.txt.dbsecurity.entity.Article;
+import com.txt.dbsecurity.entity.ArticleXml;
 import org.springframework.security.access.annotation.Secured;
-
-import com.txt.entity.Article;
-import com.txt.entity.ArticleXml;
 
 public interface IArticleService {
 	@Secured({ "ROLE_ADMIN", "ROLE_USER" })

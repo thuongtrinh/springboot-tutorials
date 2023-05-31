@@ -1,4 +1,4 @@
-package com.txt.dao;
+package com.txt.dbsecurity.dao;
 
 import java.util.List;
 
@@ -6,9 +6,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
+import com.txt.dbsecurity.entity.UserInfo;
 import org.springframework.stereotype.Repository;
-
-import com.txt.entity.UserInfo;
 
 @Repository
 @Transactional

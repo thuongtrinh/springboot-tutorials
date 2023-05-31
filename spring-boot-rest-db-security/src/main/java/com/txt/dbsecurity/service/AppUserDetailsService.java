@@ -1,4 +1,4 @@
-package com.txt.service;
+package com.txt.dbsecurity.service;
 
 import java.util.Arrays;
 
@@ -11,8 +11,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.txt.dao.UserInfoDao;
-import com.txt.entity.UserInfo;
+import com.txt.dbsecurity.dao.UserInfoDao;
+import com.txt.dbsecurity.entity.UserInfo;
 
 @Service
 public class AppUserDetailsService implements UserDetailsService {

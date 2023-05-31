@@ -1,4 +1,4 @@
-package com.txt.config;
+package com.txt.dbsecurity.config;
 
 import java.io.IOException;
 
