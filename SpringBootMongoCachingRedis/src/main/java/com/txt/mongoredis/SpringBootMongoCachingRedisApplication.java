@@ -7,11 +7,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.core.env.Environment;
 
 @SpringBootApplication
-public class SpringBootMongoRedisApplication {
-    private static final Logger log = LoggerFactory.getLogger(SpringBootMongoRedisApplication.class);
+public class SpringBootMongoCachingRedisApplication {
+    private static final Logger log = LoggerFactory.getLogger(SpringBootMongoCachingRedisApplication.class);
 
     public static void main(String[] args) {
-        SpringApplication app = new SpringApplication(SpringBootMongoRedisApplication.class);
+        SpringApplication app = new SpringApplication(SpringBootMongoCachingRedisApplication.class);
         Environment env = app.run(args).getEnvironment();
 
         log.info(

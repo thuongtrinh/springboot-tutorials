@@ -24,7 +24,7 @@
             </http>
             <format class="com.github.loki4j.logback.ProtobufEncoder">
                 <label>
-                    <pattern>app=SpringBootMongoRedis,host=${HOSTNAME},level=%level</pattern>
+                    <pattern>app=SpringBootMongoCachingRedis,host=${HOSTNAME},level=%level</pattern>
                 </label>
                 <message>
                     <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} l=%level h=${HOSTNAME} c=%logger{20} t=%thread |
