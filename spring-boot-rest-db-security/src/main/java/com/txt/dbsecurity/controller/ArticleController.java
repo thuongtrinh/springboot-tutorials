@@ -1,7 +1,9 @@
 package com.txt.dbsecurity.controller;
 
-import java.util.List;
+import java.util.*;
 
+import com.txt.dbsecurity.common.JsonHelper;
+import com.txt.dbsecurity.common.RequestUtils;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,14 +24,17 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.txt.dbsecurity.entities.Article;
 import com.txt.dbsecurity.service.ArticleService;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
-@Tag(name = "Rest Article API", description = "Article API")
+@Tag(name = "Article API", description = "Article API")
 @Slf4j
 @RequiredArgsConstructor
 @RequestMapping("api")
 public class ArticleController {
 
     final ArticleService articleService;
+    final HttpServletRequest httpServletRequest;
 
     @GetMapping("article/{id}")
     public ResponseEntity<Article> getArticleById(@PathVariable("id") Integer id) {
@@ -49,6 +54,12 @@ public class ArticleController {
     @GetMapping("articles")
     public ResponseEntity<List<Article>> getAllArticles() {
         log.info("Process getAllArticles");
+
+        log.info("Info request header from api -> getAllArticles");
+        log.info("--------------------------------------------");
+        log.info(JsonHelper.getInstance().objectToJson(RequestUtils.getRequestInformation(httpServletRequest)));
+        log.info("--------------------------------------------");
+
         try {
             List<Article> list = articleService.getAllArticles();
             return new ResponseEntity<>(list, HttpStatus.OK);
@@ -111,4 +122,5 @@ public class ArticleController {
             MDC.clear();
         }
     }
+
 }
