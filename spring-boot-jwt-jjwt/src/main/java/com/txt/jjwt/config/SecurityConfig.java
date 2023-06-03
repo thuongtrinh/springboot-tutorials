@@ -1,6 +1,6 @@
 package com.txt.jjwt.config;
 
-import com.txt.jjwt.filter.JWTAuthenticationFilter;
+import com.txt.jjwt.filters.JWTAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;

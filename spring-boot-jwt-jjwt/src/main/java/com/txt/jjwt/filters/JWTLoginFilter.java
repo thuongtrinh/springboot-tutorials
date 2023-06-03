@@ -1,4 +1,4 @@
-package com.txt.jjwt.filter;
+package com.txt.jjwt.filters;
 
 import java.io.IOException;
 import java.util.Collections;
