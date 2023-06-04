@@ -3,6 +3,7 @@ package com.txt.jjwt.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.txt.jjwt.dto.UserDTO;
 import com.txt.jjwt.entities.User;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -63,7 +64,7 @@ public class UserService {
         return null;
     }
 
-    public boolean checkLogin(User user) {
+    public boolean checkLogin(UserDTO user) {
         for (User userExist : listUser) {
             if (StringUtils.equals(user.getUsername(), userExist.getUsername())
                     && StringUtils.equals(user.getPassword(), userExist.getPassword())) {

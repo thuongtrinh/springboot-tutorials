@@ -35,7 +35,6 @@ public class SwaggerConfig {
                                 .type(SecurityScheme.Type.APIKEY)
                                 .in(SecurityScheme.In.HEADER)
                                 .name("Authorization")))
-
                 // AddSecurityItem section applies created scheme globally
                 .addSecurityItem(new SecurityRequirement().addList("authorizationHeader"));
     }

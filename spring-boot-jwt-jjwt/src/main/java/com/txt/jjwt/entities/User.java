@@ -3,6 +3,7 @@ package com.txt.jjwt.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -13,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonIgnoreProperties(value = {"roles", "authorities"})
 public class User {
 
+    @JsonIgnore
     private int id;
     private String username;
     private String password;

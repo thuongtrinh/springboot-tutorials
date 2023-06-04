@@ -1,4 +1,4 @@
-package com.txt.jjwt.service;
+package com.txt.jjwt.utils;
 
 import static java.util.Collections.emptyList;
 
@@ -18,12 +18,12 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
-public class TokenAuthenticationService {
+public class JWTokenUtils {
 
     static final long EXPIRATIONTIME = 864_000_000; // 10 days
     static final String SECRET = "ThisIsASecret";
-    static final String TOKEN_PREFIX = "Bearer";
-    static final String HEADER_STRING = "Authorization";
+    public static final String TOKEN_PREFIX = "Bearer";
+    public static final String HEADER_STRING = "Authorization";
 
     public static String addAuthentication(HttpServletResponse res, String username) {
         // The JWT signature algorithm we will be using to sign the token
@@ -41,6 +41,7 @@ public class TokenAuthenticationService {
         String JWT = Jwts.builder()
                 //.setId(id)
                 //.setIssuer(issuer)
+                ///.setClaims()
                 .setIssuedAt(now)
                 .setSubject(username)
                 .setExpiration(exp)
@@ -51,31 +52,31 @@ public class TokenAuthenticationService {
         return JWT;
     }
 
+    public static Claims decodeJWT(String jwt) {
+        // This line will throw an exception if it is not a signed JWS (as expected)
+        Claims claims = Jwts.parser()
+                .setSigningKey(DatatypeConverter.parseBase64Binary(SECRET))
+                .parseClaimsJws(jwt)
+                .getBody();
+
+        return claims;
+    }
+
     public static Authentication getAuthentication(HttpServletRequest request) {
         String token = request.getHeader(HEADER_STRING);
 
         if (!StringUtils.isEmpty(token)) {
             // parse the token.
-			/*String user = Jwts.parser()
-					.setSigningKey(SECRET)
-					.parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
-					.getBody()
-					.getSubject();*/
             String user = decodeJWT(token).getSubject();
-
             return user != null ? new UsernamePasswordAuthenticationToken(user, null, emptyList()) : null;
         }
 
         return null;
     }
 
-    public static Claims decodeJWT(String jwt) {
-        // This line will throw an exception if it is not a signed JWS (as expected)
-        Claims claims = Jwts.parser()
-                .setSigningKey(DatatypeConverter.parseBase64Binary(SECRET))
-                .parseClaimsJws(jwt.substring(7))
-                .getBody();
-
-        return claims;
+    public static Boolean isTokenExpired(String token) {
+        final Date expiration = decodeJWT(token).getExpiration();
+        return expiration.before(new Date());
     }
+
 }

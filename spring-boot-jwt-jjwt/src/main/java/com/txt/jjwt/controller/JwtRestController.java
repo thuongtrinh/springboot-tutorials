@@ -5,8 +5,9 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.txt.jjwt.dto.UserDTO;
 import com.txt.jjwt.entities.User;
-import com.txt.jjwt.service.TokenAuthenticationService;
+import com.txt.jjwt.utils.JWTokenUtils;
 import com.txt.jjwt.service.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,12 +32,12 @@ public class JwtRestController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseEntity<String> login(HttpServletRequest request, HttpServletResponse response, @RequestBody User user) {
+    public ResponseEntity<String> login(HttpServletRequest request, HttpServletResponse response, @RequestBody UserDTO user) {
         String result;
         HttpStatus httpStatus;
         try {
             if (userService.checkLogin(user)) {
-                result = TokenAuthenticationService.addAuthentication(response, user.getUsername());
+                result = JWTokenUtils.addAuthentication(response, user.getUsername());
                 httpStatus = HttpStatus.OK;
             } else {
                 result = "Wrong userId and password";
