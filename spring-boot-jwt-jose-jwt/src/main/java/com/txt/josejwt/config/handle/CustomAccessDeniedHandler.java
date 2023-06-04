@@ -1,4 +1,4 @@
-package com.txt.rest;
+package com.txt.josejwt.config.handle;
 
 import java.io.IOException;
 
@@ -11,12 +11,12 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 
-	@Override
-	public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException exc)
-			throws IOException, ServletException {
+    @Override
+    public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException exc)
+            throws IOException, ServletException {
 //		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-		response.getWriter().write("Access Denied!");
+        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        response.getWriter().write("Access Denied!");
 
-	}
+    }
 }

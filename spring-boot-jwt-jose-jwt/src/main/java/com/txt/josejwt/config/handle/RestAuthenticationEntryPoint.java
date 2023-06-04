@@ -1,4 +1,4 @@
-package com.txt.rest;
+package com.txt.josejwt.config.handle;
 
 import java.io.IOException;
 
@@ -10,11 +10,11 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 
 
 public final class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
-	
-	public void commence(HttpServletRequest request, HttpServletResponse response,
-			AuthenticationException authException) throws IOException {
+
+    public void commence(HttpServletRequest request, HttpServletResponse response,
+                         AuthenticationException authException) throws IOException {
 //		response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
-		response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-		response.getWriter().write("Unauthorized");
-	}
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.getWriter().write("Unauthorized");
+    }
 }
