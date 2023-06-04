@@ -4,12 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.txt</groupId>
-	<artifactId>SpringBootJwt</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>spring-boot-jwt-jose-jwt</artifactId>
+	<version>1.0</version>
 	<packaging>jar</packaging>
-
-	<name>SpringBootJwt</name>
-	<description>Demo Spring Boot JSON Web Token</description>
+	<name>Spring Boot json web token with nimbus-jose-jwt</name>
+	<description>Spring Boot Json Web Token with nimbus-jose-jwt</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
