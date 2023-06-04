@@ -1,6 +1,7 @@
 package com.txt.jjwt.config;
 
 import com.txt.jjwt.filters.JWTAuthenticationFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -15,6 +16,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableMethodSecurity
 @Configuration
 public class SecurityConfig {
+
+    @Autowired
+    JWTAuthenticationFilter jwtAuthenticationFilter;
 
     @Bean
     public CustomAccessDeniedHandler customAccessDeniedHandler() {
@@ -33,7 +37,7 @@ public class SecurityConfig {
                 .antMatchers("/restjjwt/login").permitAll()
                 .and()
                 .addFilterBefore(
-                        new JWTAuthenticationFilter(),
+                        jwtAuthenticationFilter,
                         UsernamePasswordAuthenticationFilter.class
                 )
                 .exceptionHandling().accessDeniedHandler(customAccessDeniedHandler());

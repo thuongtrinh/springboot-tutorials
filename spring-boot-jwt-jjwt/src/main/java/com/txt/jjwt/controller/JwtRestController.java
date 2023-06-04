@@ -26,6 +26,9 @@ public class JwtRestController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    JWTokenUtils jwTokenUtils;
+
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public ResponseEntity<List<User>> getAllUser() {
         return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
@@ -37,7 +40,7 @@ public class JwtRestController {
         HttpStatus httpStatus;
         try {
             if (userService.checkLogin(user)) {
-                result = JWTokenUtils.addAuthentication(response, user.getUsername());
+                result = jwTokenUtils.addAuthentication(response, user.getUsername());
                 httpStatus = HttpStatus.OK;
             } else {
                 result = "Wrong userId and password";
@@ -45,6 +48,7 @@ public class JwtRestController {
             }
         } catch (Exception ex) {
             result = "Server Error";
+            ex.printStackTrace();
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<>(result, httpStatus);

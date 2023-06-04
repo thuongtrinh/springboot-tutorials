@@ -5,6 +5,7 @@ import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AuthorizationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -28,6 +29,9 @@ import java.util.List;
 @Component
 public class JWTAuthenticationFilter extends OncePerRequestFilter {
 
+    @Autowired
+    JWTokenUtils jwTokenUtils;
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         if (request.getServletPath().contains("swagger-ui")
@@ -48,7 +52,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
 
                 String token = authHeader.substring(7);
                 if (StringUtils.isNotBlank(token)) {
-                    Claims claims = JWTokenUtils.decodeJWT(token);
+                    Claims claims = jwTokenUtils.decodeJWT(token);
                     List<String> rolesMap = claims.get("role", List.class);
                     List<GrantedAuthority> authorities = new ArrayList<>();
                     if (rolesMap != null) {
