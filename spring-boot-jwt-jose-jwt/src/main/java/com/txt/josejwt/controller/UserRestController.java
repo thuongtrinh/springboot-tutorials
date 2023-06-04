@@ -33,37 +33,37 @@ public class UserRestController {
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public ResponseEntity<List<User>> getAllUser() {
-        return new ResponseEntity<List<User>>(userService.findAll(), HttpStatus.OK);
+        return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
     public ResponseEntity<Object> getUserById(@PathVariable int id) {
         User user = userService.findById(id);
         if (user != null) {
-            return new ResponseEntity<Object>(user, HttpStatus.OK);
+            return new ResponseEntity<>(user, HttpStatus.OK);
         }
-        return new ResponseEntity<Object>("Not Found User", HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>("Not Found User", HttpStatus.NO_CONTENT);
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.POST)
     public ResponseEntity<String> createUser(@RequestBody User user) {
         if (userService.add(user)) {
-            return new ResponseEntity<String>("Created!", HttpStatus.CREATED);
+            return new ResponseEntity<>("Created!", HttpStatus.CREATED);
         } else {
-            return new ResponseEntity<String>("User Existed!", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("User Existed!", HttpStatus.BAD_REQUEST);
         }
     }
 
     @RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteUserById(@PathVariable int id) {
         userService.delete(id);
-        return new ResponseEntity<String>("Deleted!", HttpStatus.OK);
+        return new ResponseEntity<>("Deleted!", HttpStatus.OK);
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity<String> login(HttpServletRequest request, @RequestBody UserDTO user) {
-        String result = "";
-        HttpStatus httpStatus = null;
+        String result;
+        HttpStatus httpStatus;
         try {
             if (userService.checkLogin(user)) {
                 result = jwtService.generateTokenLogin(user.getUsername());
@@ -76,7 +76,7 @@ public class UserRestController {
             result = "Server Error";
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         }
-        return new ResponseEntity<String>(result, httpStatus);
+        return new ResponseEntity<>(result, httpStatus);
     }
 
 }

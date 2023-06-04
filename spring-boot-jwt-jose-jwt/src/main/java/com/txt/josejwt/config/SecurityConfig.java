@@ -12,7 +12,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.txt.josejwt.config.handle.CustomAccessDeniedHandler;
-import com.txt.josejwt.filter.JwtAuthenticationTokenFilter;
+import com.txt.josejwt.filters.JwtAuthenticationTokenFilter;
 import com.txt.josejwt.config.handle.RestAuthenticationEntryPoint;
 
 
