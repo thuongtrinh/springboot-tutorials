@@ -19,13 +19,10 @@ public class SecurityConfiguration extends KeycloakWebSecurityConfigurerAdapter 
 
     /**
      * Registers the KeycloakAuthenticationProvider with the authentication manager.
-     * <p>
      * Since Spring Security requires that role names start with "ROLE_",
      * a SimpleAuthorityMapper is used to instruct the KeycloakAuthenticationProvider
      * to insert the "ROLE_" prefix.
-     * <p>
      * e.g. Librarian -> ROLE_Librarian
-     * <p>
      * Should you prefer to have the role all in uppercase, you can instruct
      * the SimpleAuthorityMapper to convert it by calling:
      * {@code grantedAuthorityMapper.setConvertToUpperCase(true); }.
@@ -46,7 +43,6 @@ public class SecurityConfiguration extends KeycloakWebSecurityConfigurerAdapter 
 
     /**
      * Defines the session authentication strategy.
-     * <p>
      * RegisterSessionAuthenticationStrategy is used because this is a public application
      * from the Keycloak point of view.
      */
