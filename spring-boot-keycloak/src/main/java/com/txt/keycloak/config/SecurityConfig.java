@@ -1,6 +1,6 @@
+/*
 package com.txt.keycloak.config;
 
-import org.keycloak.adapters.springboot.KeycloakSpringBootConfigResolver;
 import org.keycloak.adapters.springsecurity.KeycloakSecurityComponents;
 import org.keycloak.adapters.springsecurity.authentication.KeycloakAuthenticationProvider;
 import org.keycloak.adapters.springsecurity.config.KeycloakWebSecurityConfigurerAdapter;
@@ -39,10 +39,10 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
     }
 
     // Specifies the session authentication strategy
-    @Bean
-    public KeycloakSpringBootConfigResolver KeycloakConfigResolver() {
-        return new KeycloakSpringBootConfigResolver();
-    }
+//    @Bean
+//    public KeycloakSpringBootConfigResolver KeycloakConfigResolver() {
+//        return new KeycloakSpringBootConfigResolver();
+//    }
 
     // Submits the KeycloakAuthenticationProvider to the AuthenticationManager
     @Autowired
@@ -52,3 +52,4 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
         auth.authenticationProvider(keycloakAuthenticationProvider);
     }
 }
+*/

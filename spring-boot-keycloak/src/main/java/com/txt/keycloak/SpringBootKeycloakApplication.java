@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringBootKeycloaksApplication {
+public class SpringBootKeycloakApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(SpringBootKeycloaksApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(SpringBootKeycloakApplication.class, args);
+    }
 }

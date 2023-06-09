@@ -1,6 +1,6 @@
-package com.txt.keycloak.repository;
+package com.txt.keycloak.repositories;
 
-import com.txt.keycloak.entity.Customer;
+import com.txt.keycloak.entities.Customer;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

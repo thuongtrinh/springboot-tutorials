@@ -1,4 +1,4 @@
-package com.txt.keycloak.entity;
+package com.txt.keycloak.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

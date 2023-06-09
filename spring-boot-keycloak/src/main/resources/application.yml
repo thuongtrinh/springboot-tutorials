@@ -1,0 +1,15 @@
+server:
+    port: 8085
+
+keycloak:
+    enabled: true
+    realm: SYSPRO_TXT #the name of the realm
+    auth-server-url:  http://localhost:8080/auth #Keycloak server endpoint
+    ssl-required: none #localhost and private IPs can access without HTTPS
+    resource: syspro_api #the client
+    credentials:
+        secret: e7260e56-7a3b-4727-94c3-6560611bdc85 #the client secret
+    bearer-only: true #do not redirect to login page
+    principal-attribute: preferred_username
+    use-resource-role-mappings: true
+    cors: true

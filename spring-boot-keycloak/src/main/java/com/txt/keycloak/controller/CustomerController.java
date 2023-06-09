@@ -1,38 +1,57 @@
 package com.txt.keycloak.controller;
 
-import com.txt.keycloak.entity.Customer;
-import com.txt.keycloak.repository.CustomerRepository;
+import com.txt.keycloak.entities.Customer;
+import com.txt.keycloak.entities.User;
+import com.txt.keycloak.repositories.CustomerRepository;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.keycloak.KeycloakPrincipal;
 import org.keycloak.KeycloakSecurityContext;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
-import org.keycloak.representations.IDToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
-import java.util.Map;
 
-@Controller
+
+@Tag(name = "JWT authentication with Keycloak API", description = "JWT authentication with Keycloak API")
+@RestController
+@RequestMapping("api")
 public class CustomerController {
 
     @Autowired
     private CustomerRepository customerRepository;
 
-    @GetMapping(path = "/")
-    public String index() {
-        return "external";
-    }
-
-    @GetMapping(path = "/customers")
-    public String customers(Principal principal, Model model) {
+    @RequestMapping(value = "/customers", method = RequestMethod.GET)
+    public ResponseEntity<?> customers() {
         addCustomers();
         Iterable<Customer> customers = customerRepository.findAll();
-        model.addAttribute("customers", customers);
-        model.addAttribute("username", principal.getName());
-        return "customers";
+        return new ResponseEntity<Iterable>(customers, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    public ResponseEntity<?> getUserInfo() {
+        KeycloakAuthenticationToken authentication = (KeycloakAuthenticationToken) SecurityContextHolder.getContext()
+                .getAuthentication();
+
+        final Principal principal = (Principal) authentication.getPrincipal();
+        String email = "";
+
+        if (principal instanceof KeycloakPrincipal) {
+            KeycloakPrincipal<KeycloakSecurityContext> kPrincipal = (KeycloakPrincipal<KeycloakSecurityContext>) principal;
+            KeycloakSecurityContext context = kPrincipal.getKeycloakSecurityContext();
+            email = context.getToken().getEmail();
+        }
+
+        User user = new User();
+        user.setUsername(principal.getName());
+        user.setEmail(email);
+
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     // add customers for demonstration
@@ -54,28 +73,5 @@ public class CustomerController {
         customer3.setName("Big LLC");
         customer3.setServiceRendered("Important services 003");
         customerRepository.save(customer3);
-    }
-
-    @GetMapping(path = "/users")
-    public String getUserInfo(Model model) {
-        KeycloakAuthenticationToken authentication = (KeycloakAuthenticationToken) SecurityContextHolder.getContext()
-                .getAuthentication();
-
-        final Principal principal = (Principal) authentication.getPrincipal();
-        String dob = "";
-
-        if (principal instanceof KeycloakPrincipal) {
-            KeycloakPrincipal<KeycloakSecurityContext> kPrincipal = (KeycloakPrincipal<KeycloakSecurityContext>) principal;
-            IDToken token = kPrincipal.getKeycloakSecurityContext().getIdToken();
-            Map<String, Object> customClaims = token.getOtherClaims();
-
-            if (customClaims.containsKey("DOB")) {
-                dob = String.valueOf(customClaims.get("DOB"));
-            }
-        }
-
-        model.addAttribute("username", principal.getName());
-        model.addAttribute("dob", dob);
-        return "userInfo";
     }
 }
