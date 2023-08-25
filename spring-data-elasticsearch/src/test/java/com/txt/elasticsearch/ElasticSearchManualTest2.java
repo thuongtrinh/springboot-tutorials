@@ -1,4 +1,4 @@
-package com.txt.spring.data.es;
+package com.txt.elasticsearch;
 
 import static java.util.Arrays.asList;
 import static org.elasticsearch.index.query.Operator.AND;
@@ -10,10 +10,10 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
-import com.txt.spring.data.es.config.Config;
-import com.txt.spring.data.es.model.Article;
-import com.txt.spring.data.es.model.Author;
-import com.txt.spring.data.es.repository.ArticleRepository;
+import com.txt.elasticsearch.config.Config;
+import com.txt.elasticsearch.entities.Article;
+import com.txt.elasticsearch.entities.Author;
+import com.txt.elasticsearch.repository.ArticleRepository;
 
 import org.junit.After;
 import org.junit.Before;
@@ -37,7 +37,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = Config.class)
-public class ElasticSearchManualTest {
+public class ElasticSearchManualTest2 {
 
 	@Autowired
 	private ElasticsearchRestTemplate elasticsearchTemplate;

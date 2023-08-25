@@ -1,4 +1,4 @@
-package com.txt.spring.data.es.config;
+package com.txt.elasticsearch.config;
 
 import org.elasticsearch.client.RestHighLevelClient;
 import org.springframework.context.annotation.Bean;
@@ -11,18 +11,18 @@ import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 
 @Configuration
-@EnableElasticsearchRepositories(basePackages = "com.txt.spring.data.es.repository")
-@ComponentScan(basePackages = { "com.txt.spring.data.es.service" })
+@EnableElasticsearchRepositories(basePackages = "com.txt.elasticsearch.repository")
+@ComponentScan(basePackages = {"com.txt.elasticsearch"})
 public class Config {
 
-	@Bean
-	RestHighLevelClient client() {
-		ClientConfiguration clientConfiguration = ClientConfiguration.builder().connectedTo("localhost:9200").build();
-		return RestClients.create(clientConfiguration).rest();
-	}
+    @Bean
+    RestHighLevelClient client() {
+        ClientConfiguration clientConfiguration = ClientConfiguration.builder().connectedTo("localhost:9200").build();
+        return RestClients.create(clientConfiguration).rest();
+    }
 
-	@Bean
-	public ElasticsearchOperations elasticsearchTemplate() {
-		return new ElasticsearchRestTemplate(client());
-	}
+    @Bean
+    public ElasticsearchOperations elasticsearchTemplate() {
+        return new ElasticsearchRestTemplate(client());
+    }
 }

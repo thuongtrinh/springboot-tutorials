@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.alibaba.fastjson.JSON;
-import com.txt.elasticsearch.Person;
+import com.txt.elasticsearch.entities.Person;
 
 import org.elasticsearch.action.DocWriteResponse.Result;
 import org.elasticsearch.action.delete.DeleteRequest;
@@ -39,123 +39,123 @@ import org.springframework.data.elasticsearch.client.RestClients;
 
 /**
  * This Manual test requires: Elasticsearch instance running on localhost:9200.
- * 
+ * <p>
  * The following docker command can be used: docker run -d --name es7132 -p 9200:9200 -e "discovery.type=single-node" elasticsearch:7.13.2
  */
 public class ElasticSearchManualTest {
-	private List<Person> listOfPersons = new ArrayList<>();
-	private RestHighLevelClient client = null;
+    private List<Person> listOfPersons = new ArrayList<>();
+    private RestHighLevelClient client = null;
 
-	@Before
-	public void setUp() throws UnknownHostException {
-		Person person1 = new Person(10, "John Doe", new Date());
-		Person person2 = new Person(25, "Janette Doe", new Date());
-		listOfPersons.add(person1);
-		listOfPersons.add(person2);
+    @Before
+    public void setUp() throws UnknownHostException {
+        Person person1 = new Person(10, "John Doe", new Date());
+        Person person2 = new Person(25, "Janette Doe", new Date());
+        listOfPersons.add(person1);
+        listOfPersons.add(person2);
 
-		ClientConfiguration clientConfiguration = ClientConfiguration.builder().connectedTo("localhost:9200").build();
-		client = RestClients.create(clientConfiguration).rest();
-	}
+        ClientConfiguration clientConfiguration = ClientConfiguration.builder().connectedTo("localhost:9200").build();
+        client = RestClients.create(clientConfiguration).rest();
+    }
 
-	@Test
-	public void givenJsonString_whenJavaObject_thenIndexDocument() throws Exception {
-		String jsonObject = "{\"age\":14,\"dateOfBirth\":1471466076564,\"fullName\":\"John Kate\"}";
-		IndexRequest request = new IndexRequest("people");
-		request.source(jsonObject, XContentType.JSON);
+    @Test
+    public void givenJsonString_whenJavaObject_thenIndexDocument() throws Exception {
+        String jsonObject = "{\"age\":14,\"dateOfBirth\":1471466076564,\"fullName\":\"John Kate\"}";
+        IndexRequest request = new IndexRequest("people");
+        request.source(jsonObject, XContentType.JSON);
 
-		IndexResponse response = client.index(request, RequestOptions.DEFAULT);
-		String index = response.getIndex();
-		long version = response.getVersion();
+        IndexResponse response = client.index(request, RequestOptions.DEFAULT);
+        String index = response.getIndex();
+        long version = response.getVersion();
 
-		assertEquals(Result.CREATED, response.getResult());
-		assertEquals(1, version);
-		assertEquals("people", index);
-	}
+        assertEquals(Result.CREATED, response.getResult());
+        assertEquals(1, version);
+        assertEquals("people", index);
+    }
 
-	@Test
-	public void givenDocumentId_whenJavaObject_thenDeleteDocument() throws Exception {
-		String jsonObject = "{\"age\":10,\"dateOfBirth\":1471455886564,\"fullName\":\"Johan Doe\"}";
-		IndexRequest indexRequest = new IndexRequest("people");
-		indexRequest.source(jsonObject, XContentType.JSON);
+    @Test
+    public void givenDocumentId_whenJavaObject_thenDeleteDocument() throws Exception {
+        String jsonObject = "{\"age\":10,\"dateOfBirth\":1471455886564,\"fullName\":\"Johan Doe\"}";
+        IndexRequest indexRequest = new IndexRequest("people");
+        indexRequest.source(jsonObject, XContentType.JSON);
 
-		IndexResponse response = client.index(indexRequest, RequestOptions.DEFAULT);
-		String id = response.getId();
+        IndexResponse response = client.index(indexRequest, RequestOptions.DEFAULT);
+        String id = response.getId();
 
-		GetRequest getRequest = new GetRequest("people");
-		getRequest.id(id);
+        GetRequest getRequest = new GetRequest("people");
+        getRequest.id(id);
 
-		GetResponse getResponse = client.get(getRequest, RequestOptions.DEFAULT);
-		System.out.println(getResponse.getSourceAsString());
+        GetResponse getResponse = client.get(getRequest, RequestOptions.DEFAULT);
+        System.out.println(getResponse.getSourceAsString());
 
-		DeleteRequest deleteRequest = new DeleteRequest("people");
-		deleteRequest.id(id);
+        DeleteRequest deleteRequest = new DeleteRequest("people");
+        deleteRequest.id(id);
 
-		DeleteResponse deleteResponse = client.delete(deleteRequest, RequestOptions.DEFAULT);
+        DeleteResponse deleteResponse = client.delete(deleteRequest, RequestOptions.DEFAULT);
 
-		assertEquals(Result.DELETED, deleteResponse.getResult());
-	}
+        assertEquals(Result.DELETED, deleteResponse.getResult());
+    }
 
-	@Test
-	public void givenSearchRequest_whenMatchAll_thenReturnAllResults() throws Exception {
-		SearchRequest searchRequest = new SearchRequest();
-		SearchResponse response = client.search(searchRequest, RequestOptions.DEFAULT);
-		SearchHit[] searchHits = response.getHits().getHits();
-		List<Person> results = Arrays.stream(searchHits)
-				.map(hit -> JSON.parseObject(hit.getSourceAsString(), Person.class)).collect(Collectors.toList());
+    @Test
+    public void givenSearchRequest_whenMatchAll_thenReturnAllResults() throws Exception {
+        SearchRequest searchRequest = new SearchRequest();
+        SearchResponse response = client.search(searchRequest, RequestOptions.DEFAULT);
+        SearchHit[] searchHits = response.getHits().getHits();
+        List<Person> results = Arrays.stream(searchHits)
+                .map(hit -> JSON.parseObject(hit.getSourceAsString(), Person.class)).collect(Collectors.toList());
 
-		System.out.println("\n====givenSearchRequest_whenMatchAll_thenReturnAllResults==== size = " + results.size());
-		results.forEach(System.out::println);
-	}
+        System.out.println("\n====givenSearchRequest_whenMatchAll_thenReturnAllResults==== size = " + results.size());
+        results.forEach(System.out::println);
+    }
 
-	@Test
-	public void givenSearchParameters_thenReturnResults() throws Exception {
-		SearchSourceBuilder builder = new SearchSourceBuilder()
-				.postFilter(QueryBuilders.rangeQuery("age").from(5).to(19));
+    @Test
+    public void givenSearchParameters_thenReturnResults() throws Exception {
+        SearchSourceBuilder builder = new SearchSourceBuilder()
+                .postFilter(QueryBuilders.rangeQuery("age").from(5).to(19));
 
-		SearchRequest searchRequest = new SearchRequest();
-		searchRequest.searchType(SearchType.DFS_QUERY_THEN_FETCH);
-		searchRequest.source(builder);
+        SearchRequest searchRequest = new SearchRequest();
+        searchRequest.searchType(SearchType.DFS_QUERY_THEN_FETCH);
+        searchRequest.source(builder);
 
-		SearchResponse response = client.search(searchRequest, RequestOptions.DEFAULT);
+        SearchResponse response = client.search(searchRequest, RequestOptions.DEFAULT);
 
-		builder = new SearchSourceBuilder().postFilter(QueryBuilders.simpleQueryStringQuery("-Kate OR Smith +John"));
+        builder = new SearchSourceBuilder().postFilter(QueryBuilders.simpleQueryStringQuery("-Kate OR Smith +John"));
 
-		searchRequest = new SearchRequest();
-		searchRequest.searchType(SearchType.DFS_QUERY_THEN_FETCH);
-		searchRequest.source(builder);
+        searchRequest = new SearchRequest();
+        searchRequest.searchType(SearchType.DFS_QUERY_THEN_FETCH);
+        searchRequest.source(builder);
 
-		SearchResponse response2 = client.search(searchRequest, RequestOptions.DEFAULT);
+        SearchResponse response2 = client.search(searchRequest, RequestOptions.DEFAULT);
 
-		builder = new SearchSourceBuilder().postFilter(QueryBuilders.matchQuery("fullName", "John Kate"));
-		searchRequest = new SearchRequest();
-		searchRequest.searchType(SearchType.DFS_QUERY_THEN_FETCH);
-		searchRequest.source(builder);
+        builder = new SearchSourceBuilder().postFilter(QueryBuilders.matchQuery("fullName", "John Kate"));
+        searchRequest = new SearchRequest();
+        searchRequest.searchType(SearchType.DFS_QUERY_THEN_FETCH);
+        searchRequest.source(builder);
 
-		SearchResponse response3 = client.search(searchRequest, RequestOptions.DEFAULT);
+        SearchResponse response3 = client.search(searchRequest, RequestOptions.DEFAULT);
 
-		response2.getHits();
-		response3.getHits();
+        response2.getHits();
+        response3.getHits();
 
-		final List<Person> results = Stream
-				.of(response.getHits().getHits(), response2.getHits().getHits(), response3.getHits().getHits())
-				.flatMap(Arrays::stream)
-				.map(hit -> JSON.parseObject(hit.getSourceAsString(), Person.class))
-				.collect(Collectors.toList());
+        final List<Person> results = Stream
+                .of(response.getHits().getHits(), response2.getHits().getHits(), response3.getHits().getHits())
+                .flatMap(Arrays::stream)
+                .map(hit -> JSON.parseObject(hit.getSourceAsString(), Person.class))
+                .collect(Collectors.toList());
 
-		System.out.println("\n====givenSearchParameters_thenReturnResults==== size = " + results.size());
-		results.forEach(System.out::println);
-	}
+        System.out.println("\n====givenSearchParameters_thenReturnResults==== size = " + results.size());
+        results.forEach(System.out::println);
+    }
 
-	@Test
-	public void givenContentBuilder_whenHelpers_thanIndexJson() throws IOException {
-		XContentBuilder builder = XContentFactory.jsonBuilder().startObject().field("fullName", "Test001")
-				.field("salary", "12500").field("age", "16").endObject();
+    @Test
+    public void givenContentBuilder_whenHelpers_thanIndexJson() throws IOException {
+        XContentBuilder builder = XContentFactory.jsonBuilder().startObject().field("fullName", "Test001")
+                .field("salary", "12500").field("age", "16").endObject();
 
-		IndexRequest indexRequest = new IndexRequest("people");
-		indexRequest.source(builder);
+        IndexRequest indexRequest = new IndexRequest("people");
+        indexRequest.source(builder);
 
-		IndexResponse response = client.index(indexRequest, RequestOptions.DEFAULT);
+        IndexResponse response = client.index(indexRequest, RequestOptions.DEFAULT);
 
-		assertEquals(Result.CREATED, response.getResult());
-	}
+        assertEquals(Result.CREATED, response.getResult());
+    }
 }
