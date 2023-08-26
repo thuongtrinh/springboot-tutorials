@@ -5,8 +5,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.core.env.Environment;
 
-@SpringBootApplication
 @Slf4j
+@SpringBootApplication
 public class SpringElasticsearchApplication {
 
     public static void main(String[] args) {
@@ -16,8 +16,8 @@ public class SpringElasticsearchApplication {
         log.info(
                 "\n----------------------------------------------------------\n\t"
                         + "Application '{}' is running!\n\t"
-                        + "Profile(s): \t{}\n----------------------------------------------------------",
+                        + "Profile(s): \t{}\n\t"
+                        + "Port(s): \t{}\n----------------------------------------------------------",
                 env.getProperty("spring.application.name"), env.getActiveProfiles());
     }
-
 }
