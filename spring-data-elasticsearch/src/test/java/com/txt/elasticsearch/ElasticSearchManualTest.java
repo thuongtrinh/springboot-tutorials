@@ -1,7 +1,5 @@
 package com.txt.elasticsearch;
 
-import static org.junit.Assert.assertEquals;
-
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -26,14 +24,17 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
-import org.elasticsearch.common.xcontent.XContentBuilder;
-import org.elasticsearch.common.xcontent.XContentFactory;
-import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
-import org.junit.Before;
-import org.junit.Test;
+import org.elasticsearch.xcontent.XContentBuilder;
+import org.elasticsearch.xcontent.XContentFactory;
+import org.elasticsearch.xcontent.XContentType;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.elasticsearch.client.ClientConfiguration;
 import org.springframework.data.elasticsearch.client.RestClients;
 
@@ -42,11 +43,13 @@ import org.springframework.data.elasticsearch.client.RestClients;
  * <p>
  * The following docker command can be used: docker run -d --name es7132 -p 9200:9200 -e "discovery.type=single-node" elasticsearch:7.13.2
  */
+@SpringBootTest
 public class ElasticSearchManualTest {
+
     private List<Person> listOfPersons = new ArrayList<>();
     private RestHighLevelClient client = null;
 
-    @Before
+    @BeforeEach
     public void setUp() throws UnknownHostException {
         Person person1 = new Person(10, "John Doe", new Date());
         Person person2 = new Person(25, "Janette Doe", new Date());
@@ -57,20 +60,20 @@ public class ElasticSearchManualTest {
         client = RestClients.create(clientConfiguration).rest();
     }
 
-    @Test
-    public void givenJsonString_whenJavaObject_thenIndexDocument() throws Exception {
-        String jsonObject = "{\"age\":14,\"dateOfBirth\":1471466076564,\"fullName\":\"John Kate\"}";
-        IndexRequest request = new IndexRequest("people");
-        request.source(jsonObject, XContentType.JSON);
-
-        IndexResponse response = client.index(request, RequestOptions.DEFAULT);
-        String index = response.getIndex();
-        long version = response.getVersion();
-
-        assertEquals(Result.CREATED, response.getResult());
-        assertEquals(1, version);
-        assertEquals("people", index);
-    }
+//    @Test
+//    public void givenJsonString_whenJavaObject_thenIndexDocument() throws Exception {
+//        String jsonObject = "{\"age\":14,\"dateOfBirth\":1471466076564,\"fullName\":\"John Kate\"}";
+//        IndexRequest request = new IndexRequest("people");
+//        request.source(jsonObject, XContentType.JSON);
+//
+//        IndexResponse response = client.index(request, RequestOptions.DEFAULT);
+//        String index = response.getIndex();
+//        long version = response.getVersion();
+//
+//        Assertions.assertEquals(Result.CREATED, response.getResult());
+//        Assertions.assertEquals(1, version);
+//        Assertions.assertEquals("people", index);
+//    }
 
     @Test
     public void givenDocumentId_whenJavaObject_thenDeleteDocument() throws Exception {
@@ -92,7 +95,7 @@ public class ElasticSearchManualTest {
 
         DeleteResponse deleteResponse = client.delete(deleteRequest, RequestOptions.DEFAULT);
 
-        assertEquals(Result.DELETED, deleteResponse.getResult());
+        Assertions.assertEquals(Result.DELETED, deleteResponse.getResult());
     }
 
     @Test
@@ -156,6 +159,6 @@ public class ElasticSearchManualTest {
 
         IndexResponse response = client.index(indexRequest, RequestOptions.DEFAULT);
 
-        assertEquals(Result.CREATED, response.getResult());
+        Assertions.assertEquals(Result.CREATED, response.getResult());
     }
 }

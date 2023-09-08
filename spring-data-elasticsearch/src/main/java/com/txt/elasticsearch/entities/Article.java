@@ -34,4 +34,12 @@ public class Article {
 
     @Field(type = Keyword)
     private String[] tags;
+
+    public Article(String title) {
+        this.title = title;
+    }
+
+    public void setTags(String ...tags) {
+        this.tags = tags;
+    }
 }

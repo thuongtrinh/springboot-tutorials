@@ -8,12 +8,11 @@ import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
 import static org.elasticsearch.index.query.QueryBuilders.multiMatchQuery;
 import static org.elasticsearch.index.query.QueryBuilders.nestedQuery;
 import static org.elasticsearch.index.query.QueryBuilders.termQuery;
-import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 import java.util.Map;
 
-import com.txt.elasticsearch.config.Config;
+import com.txt.elasticsearch.config.ElsaticsearchConfig;
 import com.txt.elasticsearch.entities.Article;
 import com.txt.elasticsearch.entities.Author;
 import com.txt.elasticsearch.repository.ArticleRepository;
@@ -34,11 +33,12 @@ import org.elasticsearch.search.aggregations.bucket.MultiBucketsAggregation;
 import org.elasticsearch.search.aggregations.bucket.terms.ParsedStringTerms;
 import org.elasticsearch.search.aggregations.bucket.terms.TermsAggregationBuilder;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.data.elasticsearch.core.mapping.IndexCoordinates;
@@ -52,8 +52,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * <p>
  * The following docker command can be used: docker run -d --name es7132 -p 9200:9200 -e "discovery.type=single-node" elasticsearch:7.13.2
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = Config.class)
+@ContextConfiguration(classes = ElsaticsearchConfig.class)
+@SpringBootTest
 public class ElasticSearchQueryManualTest {
 
     @Autowired
@@ -68,7 +68,7 @@ public class ElasticSearchQueryManualTest {
     private final Author johnSmith = new Author("John Smith");
     private final Author johnDoe = new Author("John Doe");
 
-    @Before
+    @BeforeEach
     public void before() {
         Article article = new Article("Spring Data Elasticsearch");
         article.setAuthors(asList(johnSmith, johnDoe));
@@ -91,7 +91,7 @@ public class ElasticSearchQueryManualTest {
         articleRepository.save(article);
     }
 
-    @After
+    @AfterEach
     public void after() {
         articleRepository.deleteAll();
     }
@@ -103,7 +103,7 @@ public class ElasticSearchQueryManualTest {
         //searching with: "Search" and "engines"
 
         final SearchHits<Article> articles = elasticsearchTemplate.search(searchQuery, Article.class, IndexCoordinates.of("blog"));
-        assertEquals(1, articles.getTotalHits());
+        Assertions.assertEquals(1, articles.getTotalHits());
     }
 
     @Test
@@ -113,8 +113,8 @@ public class ElasticSearchQueryManualTest {
 
         final SearchHits<Article> articles = elasticsearchTemplate.search(searchQuery, Article.class, IndexCoordinates.of("blog"));
 
-        assertEquals(1, articles.getTotalHits());
-        assertEquals("Search engines", articles.getSearchHit(0).getContent().getTitle());
+        Assertions.assertEquals(1, articles.getTotalHits());
+        Assertions.assertEquals("Search engines", articles.getSearchHit(0).getContent().getTitle());
     }
 
     @Test
@@ -124,7 +124,7 @@ public class ElasticSearchQueryManualTest {
 
         final SearchHits<Article> articles = elasticsearchTemplate.search(searchQuery, Article.class, IndexCoordinates.of("blog"));
 
-        assertEquals(3, articles.getTotalHits());
+        Assertions.assertEquals(3, articles.getTotalHits());
     }
 
     @Test
@@ -134,12 +134,12 @@ public class ElasticSearchQueryManualTest {
 
         SearchHits<Article> articles = elasticsearchTemplate.search(searchQuery, Article.class, IndexCoordinates.of("blog"));
 
-        assertEquals(1, articles.getTotalHits());
+        Assertions.assertEquals(1, articles.getTotalHits());
 
         searchQuery = new NativeSearchQueryBuilder().withQuery(matchQuery("title.verbatim", "Second Article About")).build();
 
         articles = elasticsearchTemplate.search(searchQuery, Article.class, IndexCoordinates.of("blog"));
-        assertEquals(0, articles.getTotalHits());
+        Assertions.assertEquals(0, articles.getTotalHits());
     }
 
     @Test
@@ -149,7 +149,7 @@ public class ElasticSearchQueryManualTest {
         final NativeSearchQuery searchQuery = new NativeSearchQueryBuilder().withQuery(builder).build();
         final SearchHits<Article> articles = elasticsearchTemplate.search(searchQuery, Article.class, IndexCoordinates.of("blog"));
 
-        assertEquals(2, articles.getTotalHits());
+        Assertions.assertEquals(2, articles.getTotalHits());
     }
 
     @Test
@@ -166,7 +166,7 @@ public class ElasticSearchQueryManualTest {
 
         final List<String> keys = topTags.getBuckets().stream().map(MultiBucketsAggregation.Bucket::getKeyAsString)
                 .sorted().collect(toList());
-        assertEquals(asList("about", "article", "data", "elasticsearch", "engines", "search", "second", "spring", "tutorial"), keys);
+        Assertions.assertEquals(asList("about", "article", "data", "elasticsearch", "engines", "search", "second", "spring", "tutorial"), keys);
     }
 
     @Test
@@ -183,7 +183,7 @@ public class ElasticSearchQueryManualTest {
         final ParsedStringTerms topTags = (ParsedStringTerms) results.get("top_tags");
 
         final List<String> keys = topTags.getBuckets().stream().map(MultiBucketsAggregation.Bucket::getKeyAsString).collect(toList());
-        assertEquals(asList("elasticsearch", "spring data", "search engines", "tutorial"), keys);
+        Assertions.assertEquals(asList("elasticsearch", "spring data", "search engines", "tutorial"), keys);
     }
 
     @Test
@@ -193,7 +193,7 @@ public class ElasticSearchQueryManualTest {
 
         final SearchHits<Article> articles = elasticsearchTemplate.search(searchQuery, Article.class, IndexCoordinates.of("blog"));
 
-        assertEquals(1, articles.getTotalHits());
+        Assertions.assertEquals(1, articles.getTotalHits());
     }
 
     @Test
@@ -205,7 +205,7 @@ public class ElasticSearchQueryManualTest {
 
         final SearchHits<Article> articles = elasticsearchTemplate.search(searchQuery, Article.class, IndexCoordinates.of("blog"));
 
-        assertEquals(1, articles.getTotalHits());
+        Assertions.assertEquals(1, articles.getTotalHits());
     }
 
     @Test
@@ -216,7 +216,7 @@ public class ElasticSearchQueryManualTest {
 
         final SearchHits<Article> articles = elasticsearchTemplate.search(searchQuery, Article.class, IndexCoordinates.of("blog"));
 
-        assertEquals(2, articles.getTotalHits());
+        Assertions.assertEquals(2, articles.getTotalHits());
     }
 
     @Test
@@ -228,6 +228,6 @@ public class ElasticSearchQueryManualTest {
         final NativeSearchQuery searchQuery = new NativeSearchQueryBuilder().withQuery(builder).build();
         final SearchHits<Article> articles = elasticsearchTemplate.search(searchQuery, Article.class, IndexCoordinates.of("blog"));
 
-        assertEquals(2, articles.getTotalHits());
+        Assertions.assertEquals(2, articles.getTotalHits());
     }
 }
