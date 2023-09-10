@@ -3,8 +3,7 @@ package com.txt.elasticsearch.controller;
 import com.txt.elasticsearch.dao.UserDAO;
 import com.txt.elasticsearch.entities.User;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,8 +12,10 @@ import java.util.List;
 /**
  * This class is to demo how ElasticsearchTemplate can be used to Save/Retrieve
  */
-@Tag(name = "User NativeSearch API", description = "UserController API")
+@Tag(name = "User NativeSearch API", description = "User NativeSearch API")
 @RestController
+@RequestMapping("/user/native")
+@Slf4j
 public class UserController {
 
     @Autowired
