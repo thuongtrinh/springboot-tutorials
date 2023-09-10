@@ -16,14 +16,15 @@ import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.InnerField;
 import org.springframework.data.elasticsearch.annotations.MultiField;
 
-//@Document(indexName = "blog", type = "article")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Document(indexName = "article")
 public class Article {
 
     @Id
+    @Field
     private String id;
 
     @MultiField(mainField = @Field(type = Text, fielddata = true), otherFields = {@InnerField(suffix = "verbatim", type = Keyword)})
@@ -39,7 +40,7 @@ public class Article {
         this.title = title;
     }
 
-    public void setTags(String ...tags) {
+    public void setTags(String... tags) {
         this.tags = tags;
     }
 }

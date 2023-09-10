@@ -60,20 +60,20 @@ public class ElasticSearchManualTest {
         client = RestClients.create(clientConfiguration).rest();
     }
 
-//    @Test
-//    public void givenJsonString_whenJavaObject_thenIndexDocument() throws Exception {
-//        String jsonObject = "{\"age\":14,\"dateOfBirth\":1471466076564,\"fullName\":\"John Kate\"}";
-//        IndexRequest request = new IndexRequest("people");
-//        request.source(jsonObject, XContentType.JSON);
-//
-//        IndexResponse response = client.index(request, RequestOptions.DEFAULT);
-//        String index = response.getIndex();
-//        long version = response.getVersion();
-//
-//        Assertions.assertEquals(Result.CREATED, response.getResult());
-//        Assertions.assertEquals(1, version);
-//        Assertions.assertEquals("people", index);
-//    }
+    @Test
+    public void givenJsonString_whenJavaObject_thenIndexDocument() throws Exception {
+        String jsonObject = "{\"age\":14,\"dateOfBirth\":1471466076564,\"fullName\":\"John Kate\"}";
+        IndexRequest request = new IndexRequest("people");
+        request.source(jsonObject, XContentType.JSON);
+
+        IndexResponse response = client.index(request, RequestOptions.DEFAULT);
+        String index = response.getIndex();
+        long version = response.getVersion();
+
+        Assertions.assertEquals(Result.CREATED, response.getResult());
+        Assertions.assertEquals(1, version);
+        Assertions.assertEquals("people", index);
+    }
 
     @Test
     public void givenDocumentId_whenJavaObject_thenDeleteDocument() throws Exception {

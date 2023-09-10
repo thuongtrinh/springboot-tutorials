@@ -6,3 +6,22 @@ server:
 application:
     version: 1.0
     description: Spring elasticsearch app
+
+
+# Local Elasticsearch config
+#spring:
+#    data:
+#        elasticsearch:
+##            cluster-nodes: localhost:9300
+##            cluster-name: elasticsearch
+#            repositories:
+#                enabled: true
+
+elasticsearch.index.name: user_index
+elasticsearch.user.type: user
+
+
+#spring.data.elasticsearch.repositories.enabled: true
+## comma-separated list of the Elasticsearch instances to use.
+#spring.elasticsearch.uris: ${ES_URI:localhost}:9200
+
