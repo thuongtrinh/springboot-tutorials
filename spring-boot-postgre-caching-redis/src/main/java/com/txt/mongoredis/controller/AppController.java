@@ -3,7 +3,7 @@ package com.txt.mongoredis.controller;
 import java.util.List;
 
 import com.txt.mongoredis.entity.Article;
-import com.txt.mongoredis.service.IArticleService;
+import com.txt.mongoredis.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -23,7 +23,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class AppController {
 
     @Autowired
-    private IArticleService articleService;
+    private ArticleService articleService;
 
     @GetMapping("article/{id}")
     public ResponseEntity<Article> getArticleById(@PathVariable("id") Long id) {

@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.txt.mongoredis.entity.Article;
 
-public interface IArticleService {
+public interface ArticleService {
 
 	List<Article> getAllArticles();
 
