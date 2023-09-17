@@ -1,9 +1,10 @@
-package com.txt.mongoredis.service;
+package com.txt.mongoredis.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.txt.mongoredis.entity.Article;
+import com.txt.mongoredis.service.IArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;

@@ -9,14 +9,14 @@ import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactor
 import org.springframework.data.redis.core.RedisTemplate;
 
 @Configuration
-@ComponentScan("com.txt")
+@ComponentScan("com.txt.mongoredis")
 public class RedisConfig {
 
-	@Bean
-	public RedisConnectionFactory redisConnectionFactory() {
-		LettuceConnectionFactory connectionFactory = new LettuceConnectionFactory();
-		return connectionFactory;
-	}
+    @Bean
+    public RedisConnectionFactory redisConnectionFactory() {
+        LettuceConnectionFactory connectionFactory = new LettuceConnectionFactory();
+        return connectionFactory;
+    }
 
 	/*@Bean
 	public RedisTemplate<String, Person> redisTemplate() {
@@ -25,11 +25,11 @@ public class RedisConfig {
 		return redisTemplate;
 	}*/
 
-	@Bean
-	@Primary
-	public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
-		RedisTemplate<Object, Object> template = new RedisTemplate<>();
-		template.setConnectionFactory(redisConnectionFactory);
-		return template;
-	}
+    @Bean
+    @Primary
+    public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+        RedisTemplate<Object, Object> template = new RedisTemplate<>();
+        template.setConnectionFactory(redisConnectionFactory);
+        return template;
+    }
 }

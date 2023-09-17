@@ -18,7 +18,7 @@ import com.txt.mongoredis.entity.Person;
 
 @SpringBootApplication
 @EnableCaching
-public class SpringBootRedisApplication implements CommandLineRunner {
+public class SpringBootMongoRedisApplication implements CommandLineRunner {
 
 	@Autowired
 	private FriendDAO friendDAO;
@@ -32,7 +32,7 @@ public class SpringBootRedisApplication implements CommandLineRunner {
 	private RedisTemplate<String, String> redisTemplate;
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringBootRedisApplication.class, args);
+		SpringApplication.run(SpringBootMongoRedisApplication.class, args);
 	}
 
 	@Override
