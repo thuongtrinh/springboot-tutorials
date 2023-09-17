@@ -1,4 +1,4 @@
-package com.txt.mongoredis.dao;
+package com.txt.postgreredis.dao;
 
 import java.util.Map;
 
@@ -7,7 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.stereotype.Repository;
 
-import com.txt.mongoredis.entity.Person;
+import com.txt.postgreredis.entity.Person;
 
 @Repository
 public class EmployeeDAO {

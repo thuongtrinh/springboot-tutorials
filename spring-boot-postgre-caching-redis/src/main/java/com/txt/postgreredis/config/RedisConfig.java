@@ -1,4 +1,4 @@
-package com.txt.mongoredis.config;
+package com.txt.postgreredis.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -9,7 +9,7 @@ import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactor
 import org.springframework.data.redis.core.RedisTemplate;
 
 @Configuration
-@ComponentScan("com.txt.mongoredis")
+@ComponentScan("com.txt.postgreredis")
 public class RedisConfig {
 
     @Bean

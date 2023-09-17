@@ -1,9 +1,9 @@
-package com.txt.mongoredis.controller;
+package com.txt.postgreredis.controller;
 
 import java.util.List;
 
-import com.txt.mongoredis.entity.Article;
-import com.txt.mongoredis.service.ArticleService;
+import com.txt.postgreredis.entity.Article;
+import com.txt.postgreredis.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

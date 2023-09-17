@@ -1,10 +1,10 @@
-package com.txt.mongoredis;
+package com.txt.postgreredis;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class SpringBootMongoRedisApplicationTests {
+public class SpringBootPostgreCachingRedisApplicationTests {
 
     @Test
     public void contextLoads() {

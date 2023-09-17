@@ -1,18 +1,17 @@
-package com.txt.mongoredis.service.impl;
+package com.txt.postgreredis.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.txt.mongoredis.entity.Article;
-import com.txt.mongoredis.service.ArticleService;
+import com.txt.postgreredis.entity.Article;
+import com.txt.postgreredis.service.ArticleService;
+import com.txt.postgreredis.repository.ArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
-
-import com.txt.mongoredis.repository.ArticleRepository;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {

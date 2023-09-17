@@ -1,8 +1,8 @@
-package com.txt.mongoredis.service;
+package com.txt.postgreredis.service;
 
 import java.util.List;
 
-import com.txt.mongoredis.entity.Article;
+import com.txt.postgreredis.entity.Article;
 
 public interface ArticleService {
 

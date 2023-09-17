@@ -1,4 +1,4 @@
-package com.txt.mongoredis;
+package com.txt.postgreredis;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,15 +10,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.data.redis.core.RedisTemplate;
 
-import com.txt.mongoredis.dao.EmployeeDAO;
-import com.txt.mongoredis.dao.FamilyDAO;
-import com.txt.mongoredis.dao.FriendDAO;
-import com.txt.mongoredis.dao.UserDAO;
-import com.txt.mongoredis.entity.Person;
+import com.txt.postgreredis.dao.EmployeeDAO;
+import com.txt.postgreredis.dao.FamilyDAO;
+import com.txt.postgreredis.dao.FriendDAO;
+import com.txt.postgreredis.dao.UserDAO;
+import com.txt.postgreredis.entity.Person;
 
 @SpringBootApplication
 @EnableCaching
-public class SpringBootMongoRedisApplication implements CommandLineRunner {
+public class SpringBootPostgreCachingRedisApplication implements CommandLineRunner {
 
 	@Autowired
 	private FriendDAO friendDAO;
@@ -32,7 +32,7 @@ public class SpringBootMongoRedisApplication implements CommandLineRunner {
 	private RedisTemplate<String, String> redisTemplate;
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringBootMongoRedisApplication.class, args);
+		SpringApplication.run(SpringBootPostgreCachingRedisApplication.class, args);
 	}
 
 	@Override
