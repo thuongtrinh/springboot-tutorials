@@ -20,92 +20,96 @@ import com.txt.postgreredis.entity.Person;
 @EnableCaching
 public class SpringBootPostgreCachingRedisApplication implements CommandLineRunner {
 
-	@Autowired
-	private FriendDAO friendDAO;
-	@Autowired
-	private FamilyDAO familyDAO;
-	@Autowired
-	private EmployeeDAO empDAO;
-	@Autowired
-	private UserDAO userDAO;
-	@Autowired
-	private RedisTemplate<String, String> redisTemplate;
+    @Autowired
+    private FriendDAO friendDAO;
 
-	public static void main(String[] args) {
-		SpringApplication.run(SpringBootPostgreCachingRedisApplication.class, args);
-	}
+    @Autowired
+    private FamilyDAO familyDAO;
 
-	@Override
-	public void run(String... args) throws Exception {
-		printTestRedis();
-	}
+    @Autowired
+    private EmployeeDAO empDAO;
 
-	private void printTestRedis() {
-		// List
-		System.out.println("--Example of ListOperations--");
-		Person p1 = new Person(1, "ThuongTX", 27);
-		friendDAO.addFriend(p1);
-		Person p2 = new Person(2, "TungTX", 40);
-		friendDAO.addFriend(p2);
+    @Autowired
+    private UserDAO userDAO;
 
-		System.out.println("Number of friends: " + friendDAO.getNumberOfFriends());
-		System.out.println(friendDAO.getFriendAtIndex(11));
+    @Autowired
+    private RedisTemplate<String, String> redisTemplate;
 
-		friendDAO.removeFriend(p1);
-		long size = friendDAO.getNumberOfFriends();
-		System.out.println("Number of friends: " + size);
-		for (int i = 0; i < size; i++) {
-			System.out.println(friendDAO.getFriendAtIndex(i));
-		}
+    public static void main(String[] args) {
+        SpringApplication.run(SpringBootPostgreCachingRedisApplication.class, args);
+    }
 
-		// Set
-		System.out.println("\n--Example of SetOperations--");
-		Person p11 = new Person(101, "Mother", 30);
-		Person p12 = new Person(102, "Father", 25);
-		Person p13 = new Person(103, "Brother", 35);
+    @Override
+    public void run(String... args) throws Exception {
+//        printTestRedis();
+    }
 
-		familyDAO.addFamilyMembers(p11, p12, p13);
-		System.out.println("Number of Family members: " + familyDAO.getNumberOfFamilyMembers());
-		System.out.println(familyDAO.getFamilyMembers());
-		System.out.println("No. of Removed Family Members: " + familyDAO.removeFamilyMembers(p11, p12));
-		System.out.println(familyDAO.getFamilyMembers());
+    private void printTestRedis() {
+        // List
+        System.out.println("--Example of ListOperations--");
+        Person p1 = new Person(1, "ThuongTX", 27);
+        friendDAO.addFriend(p1);
+        Person p2 = new Person(2, "TungTX", 40);
+        friendDAO.addFriend(p2);
 
-		// Hash
-		System.out.println("\n--Example of HashOperations--");
-		Person emp1 = new Person(11, "Alace", 45);
-		Person emp2 = new Person(12, "Smith", 30);
-		Person emp3 = new Person(13, "Rob", 25);
-		empDAO.addEmployee(emp1);
-		empDAO.addEmployee(emp2);
-		empDAO.addEmployee(emp3);
-		System.out.println("No. of Employees: " + empDAO.getNumberOfEmployees());
-		System.out.println(empDAO.getAllEmployees());
-		emp2.setAge(20);
-		empDAO.updateEmployee(emp2);
-		System.out.println(empDAO.getEmployee(12));
+        System.out.println("Number of friends: " + friendDAO.getNumberOfFriends());
+        System.out.println(friendDAO.getFriendAtIndex(11));
 
-		System.out.println("--Example of StringRedisTemplate--");
-		userDAO.addUserName("user001");
-		System.out.println(userDAO.getUserName());
-		userDAO.updateUserName("user002");
-		System.out.println(userDAO.getUserName());
-		userDAO.deleteUser();
-		System.out.println(userDAO.getUserName());
-		userDAO.updateUserName("user003");
-		System.out.println(userDAO.getUserName());
+        friendDAO.removeFriend(p1);
+        long size = friendDAO.getNumberOfFriends();
+        System.out.println("Number of friends: " + size);
+        for (int i = 0; i < size; i++) {
+            System.out.println(friendDAO.getFriendAtIndex(i));
+        }
 
-		// RedisTemplate
+        // Set
+        System.out.println("\n--Example of SetOperations--");
+        Person p11 = new Person(101, "Mother", 30);
+        Person p12 = new Person(102, "Father", 25);
+        Person p13 = new Person(103, "Brother", 35);
+
+        familyDAO.addFamilyMembers(p11, p12, p13);
+        System.out.println("Number of Family members: " + familyDAO.getNumberOfFamilyMembers());
+        System.out.println(familyDAO.getFamilyMembers());
+        System.out.println("No. of Removed Family Members: " + familyDAO.removeFamilyMembers(p11, p12));
+        System.out.println(familyDAO.getFamilyMembers());
+
+        // Hash
+        System.out.println("\n--Example of HashOperations--");
+        Person emp1 = new Person(11, "Alace", 45);
+        Person emp2 = new Person(12, "Smith", 30);
+        Person emp3 = new Person(13, "Rob", 25);
+        empDAO.addEmployee(emp1);
+        empDAO.addEmployee(emp2);
+        empDAO.addEmployee(emp3);
+        System.out.println("No. of Employees: " + empDAO.getNumberOfEmployees());
+        System.out.println(empDAO.getAllEmployees());
+        emp2.setAge(20);
+        empDAO.updateEmployee(emp2);
+        System.out.println(empDAO.getEmployee(12));
+
+        System.out.println("--Example of StringRedisTemplate--");
+        userDAO.addUserName("user001");
+        System.out.println(userDAO.getUserName());
+        userDAO.updateUserName("user002");
+        System.out.println(userDAO.getUserName());
+        userDAO.deleteUser();
+        System.out.println(userDAO.getUserName());
+        userDAO.updateUserName("user003");
+        System.out.println(userDAO.getUserName());
+
+        // RedisTemplate
 //		listRedisTemplate();
-	}
+    }
 
-	private void listRedisTemplate() {
-		System.out.println("\n--RedisTemplate--");
-		List<String> list = new ArrayList<>();
-		list.add("Hello");
-		list.add("redis");
+    private void listRedisTemplate() {
+        System.out.println("\n--RedisTemplate--");
+        List<String> list = new ArrayList<>();
+        list.add("Hello");
+        list.add("redis");
 
-		redisTemplate.opsForList().rightPushAll("redis_list", list);
-		// template.opsForList().rightPushAll("redis_list", "hello", "world");
-		System.out.println("Size of key redis: " + redisTemplate.opsForList().size("redis_list"));
-	}
+        redisTemplate.opsForList().rightPushAll("redis_list", list);
+        // template.opsForList().rightPushAll("redis_list", "hello", "world");
+        System.out.println("Size of key redis: " + redisTemplate.opsForList().size("redis_list"));
+    }
 }
