@@ -1,7 +1,7 @@
-package com.txt.simple.controller;
+package com.txt.rest.simple.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.txt.simple.dto.common.ResponseWithBody;
+import com.txt.rest.simple.dto.common.ResponseWithBody;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;

@@ -1,4 +1,4 @@
-package com.txt.simple.config;
+package com.txt.rest.simple.config;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;

@@ -1,4 +1,4 @@
-package com.txt.simple.dto.common;
+package com.txt.rest.simple.dto.common;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;

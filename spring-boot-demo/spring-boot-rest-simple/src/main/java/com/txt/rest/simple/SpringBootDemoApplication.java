@@ -1,4 +1,4 @@
-package com.txt.simple;
+package com.txt.rest.simple;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;

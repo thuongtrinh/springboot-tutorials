@@ -1,4 +1,4 @@
-package com.txt.simple.dto.common;
+package com.txt.rest.simple.dto.common;
 
 import org.apache.commons.lang3.StringUtils;
 

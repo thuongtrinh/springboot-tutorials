@@ -1,4 +1,4 @@
-package com.txt.simple.config;
+package com.txt.rest.simple.config;
 
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.impl.client.CloseableHttpClient;

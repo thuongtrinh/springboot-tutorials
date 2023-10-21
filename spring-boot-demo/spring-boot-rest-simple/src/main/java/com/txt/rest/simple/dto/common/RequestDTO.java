@@ -1,4 +1,4 @@
-package com.txt.simple.dto.common;
+package com.txt.rest.simple.dto.common;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
