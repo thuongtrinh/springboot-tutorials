@@ -1,3 +1,4 @@
+/*
 package com.txt.mongoredis.config;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -29,3 +30,4 @@ public class RedisCachingConfig {
     }
 
 }
+*/
