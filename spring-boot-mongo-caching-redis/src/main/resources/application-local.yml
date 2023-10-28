@@ -2,19 +2,23 @@ server:
   port: 8085
 
 spring:
+  application:
+    name: MongoRedis-Rest
+    liquibase.enabled: false
   cache:
     type: redis
-  redis:
-    url: redis://localhost:6379
-#    password: ${REDIS_KEY}
-#    port: ${REDIS_PORT}
-    ssl: false
   data:
+    redis:
+      url: redis://localhost:6379
+#      password: ${REDIS_KEY}
+#      port: ${REDIS_PORT}
+      ssl:
+        enabled: false
     mongodb:
       uri: mongodb://root:123456@localhost:27017
-      #mongodb+srv://root:123456@localhost
-      #mongodb+srv://mongosvc:54T5joFG@db-prod.acc.mongodb.net
-      #mongodb://localhost:27017/liquibasemongoredis
+#      mongodb+srv://root:123456@localhost
+#      mongodb+srv://mongosvc:54T5joFG@db-prod.acc.mongodb.net
+#      mongodb://localhost:27017/liquibasemongoredis
       options: retryWrites=true&w=majority
       dbfirst:
         database: liquibasemongoredis
@@ -22,8 +26,3 @@ spring:
       dbsecond:
         database: springboot-mongo
         uri: mongodb://root:123456@localhost:27017/springboot-mongo?authSource=admin&retryWrites=true&w=majority&directConnection=true&authMechanism=SCRAM-SHA-1
-  application:
-    name: MongoRedis-Rest
-    #  main:
-    #    allow-circular-references: true
-    liquibase.enabled: false
