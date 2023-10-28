@@ -5,8 +5,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.core.env.Environment;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
 @SpringBootApplication
+@EnableRedisHttpSession
 public class SpringBootMongoCachingRedisApplication {
     private static final Logger log = LoggerFactory.getLogger(SpringBootMongoCachingRedisApplication.class);
 
