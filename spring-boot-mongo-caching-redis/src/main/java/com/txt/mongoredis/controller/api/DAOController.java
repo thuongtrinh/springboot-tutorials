@@ -1,4 +1,4 @@
-package com.txt.mongoredis.api;
+package com.txt.mongoredis.controller.api;
 
 import com.txt.mongoredis.repositories.mongodb.dao.UserInfoDao;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Tag(name = "DAO Controller")
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/dao")
+@RequestMapping("/api/dao")
 @Slf4j
 public class DAOController {
 

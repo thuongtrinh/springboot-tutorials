@@ -1,4 +1,4 @@
-package com.txt.mongoredis.api;
+package com.txt.mongoredis.controller.api;
 
 import com.txt.mongoredis.dto.common.ResponseDTO;
 import com.txt.mongoredis.entities.mongodb.dbfirst.Books;
@@ -23,10 +23,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 
-@RestController()
+@RestController
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("/api/books")
+@RequestMapping("/api/book")
 @Tag(name = "Books Controller", description = "Books")
 public class BooksController {
 
@@ -42,10 +42,11 @@ public class BooksController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Indicates the requested were returned."),
             @ApiResponse(responseCode = "500", description = "Wrong or Missing data in request params. 6 of them are: page, size, sort, order")})
-    @GetMapping(path = "/api/v1/books/get-books", produces = "application/json")
+    @GetMapping(path = "/get-books", produces = "application/json")
     @TrackActivity(type = ActivityLogType.USER_BOOK_ACTION)
     public ResponseDTO<Books> getBooks(
             @Parameter(hidden = true) @RequestParam Map<String, String> allRequestParams) throws Exception {
+
         ResponseDTO responseDTO = new ResponseDTO();
         responseDTO.setStart(allRequestParams.get("start") != null ? Integer.valueOf(allRequestParams.get("start")) : 0);
         responseDTO.setSize(allRequestParams.get("size") != null ? Integer.valueOf(allRequestParams.get("size")) : 10);

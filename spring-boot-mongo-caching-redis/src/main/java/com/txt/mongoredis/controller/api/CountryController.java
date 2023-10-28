@@ -1,4 +1,4 @@
-package com.txt.mongoredis.api;
+package com.txt.mongoredis.controller.api;
 
 import com.txt.mongoredis.dto.CountryDTO;
 import com.txt.mongoredis.dto.common.ResponseDTO;

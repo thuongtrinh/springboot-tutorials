@@ -15,9 +15,12 @@ public class SpringBootMongoCachingRedisApplication {
         Environment env = app.run(args).getEnvironment();
 
         log.info(
-                "\n----------------------------------------------------------\n\t"
-                        + "Application '{}' is running!\n\t"
-                        + "Profile(s): \t{}\n----------------------------------------------------------",
-                env.getProperty("spring.application.name"), env.getActiveProfiles());
+                """
+                        \n----------------------------------------------------------
+                        \tApplication '{}' is running!
+                        \tProfile(s): \t{}
+                        \tPort(s): \t{}
+                        ----------------------------------------------------------""",
+                env.getProperty("spring.application.name"), env.getActiveProfiles(), env.getProperty("server.port"));
     }
 }
