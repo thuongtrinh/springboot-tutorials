@@ -1,63 +1,28 @@
 package com.txt.mongoredis.dto.common;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-/**
- * ResponseStatus
- */
+@Data
 public class ResponseStatus implements Serializable {
     private static final long serialVersionUID = 1L;
-    @JsonProperty("code")
-    private Integer code = null;
 
-    @JsonProperty("message")
-    private String message = null;
-
-    @JsonProperty("errors")
-    private List<Error> errors = null;
+    private Integer code;
+    private String message;
+    private List<Error> errors;
 
     public ResponseStatus code(Integer code) {
         this.code = code;
         return this;
     }
 
-    /**
-     * Get code
-     *
-     * @return code
-     **/
-    @Schema(description = "")
-    public Integer getCode() {
-        return code;
-    }
-
-    public void setCode(Integer code) {
-        this.code = code;
-    }
-
     public ResponseStatus message(String message) {
         this.message = message;
         return this;
-    }
-
-    /**
-     * Get message
-     *
-     * @return message
-     **/
-    @Schema(description = "")
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 
     public ResponseStatus errors(List<Error> errors) {
@@ -72,21 +37,6 @@ public class ResponseStatus implements Serializable {
         this.errors.add(errorsItem);
         return this;
     }
-
-    /**
-     * Get errors
-     *
-     * @return errors
-     **/
-    @Schema(description = "")
-    public List<Error> getErrors() {
-        return errors;
-    }
-
-    public void setErrors(List<Error> errors) {
-        this.errors = errors;
-    }
-
 
     @Override
     public boolean equals(Object o) {
@@ -107,12 +57,10 @@ public class ResponseStatus implements Serializable {
         return Objects.hash(code, message, errors);
     }
 
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class ResponseStatus {\n");
-
         sb.append("    code: ").append(toIndentedString(code)).append("\n");
         sb.append("    message: ").append(toIndentedString(message)).append("\n");
         sb.append("    errors: ").append(toIndentedString(errors)).append("\n");
@@ -120,10 +68,6 @@ public class ResponseStatus implements Serializable {
         return sb.toString();
     }
 
-    /**
-     * Convert the given object to string with each line indented by 4 spaces
-     * (except the first line).
-     */
     private String toIndentedString(Object o) {
         if (o == null) {
             return "null";

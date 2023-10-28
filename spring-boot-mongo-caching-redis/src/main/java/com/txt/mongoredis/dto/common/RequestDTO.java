@@ -3,12 +3,12 @@ package com.txt.mongoredis.dto.common;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -17,7 +17,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @ToString
 public class RequestDTO implements Serializable {
-    private static final long serialVersionUID = 5189821266152031268L;
+    private static final long serialVersionUID = 1L;
 
     @Schema(
             name = "exchangeId",
@@ -33,7 +33,7 @@ public class RequestDTO implements Serializable {
     )
     @Size(max = 255, message = "255 characters")
     @JsonProperty("correlationId")
-    private String correlationId = null;
+    private String correlationId;
 
     @Schema(
             name = "createdBy",
@@ -55,6 +55,6 @@ public class RequestDTO implements Serializable {
             description = "source"
     )
     @JsonProperty("source")
-    private String source = null;
+    private String source;
 
 }

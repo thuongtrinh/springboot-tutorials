@@ -3,7 +3,6 @@ package com.txt.mongoredis.dto.common;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 @EqualsAndHashCode(callSuper = true)
@@ -15,13 +14,8 @@ import lombok.*;
 @ToString
 public class ObjResult extends RequestDTO {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 8394494962077255588L;
-    private String status = "SUCCESS";
+    private static final long serialVersionUID = 1L;
 
-    @JsonProperty(value = "oErrorResult")
     private ObjError oErrorResult;
 
 }

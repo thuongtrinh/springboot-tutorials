@@ -7,22 +7,23 @@ public enum ResponseCode {
     FAILED("500", "FAILED"),
     SUCCESSFUL("200", "SUCCESS"),
     API_FAILED("444", "Call API failed"),
-    E001("001", "Request parameter invalid");
+    E001("001", "Request parameter invalid"),
+    E002("002", "System error");
 
     private final String code;
-    private final String description;
+    private final String message;
 
-    ResponseCode(String code, String description) {
+    ResponseCode(String code, String message) {
         this.code = code;
-        this.description = description;
+        this.message = message;
     }
 
     public String getCode() {
         return code;
     }
 
-    public String getDescription() {
-        return description;
+    public String getMessage() {
+        return message;
     }
 
     public static ResponseCode fromValue(String code) {

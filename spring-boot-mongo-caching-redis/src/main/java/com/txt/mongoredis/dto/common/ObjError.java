@@ -5,13 +5,11 @@ import lombok.*;
 import java.util.List;
 
 @Data
-@AllArgsConstructor()
+@AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @ToString
 public class ObjError {
-    private String objectIdLas;
-    private String programLas;
     private String functionUI;
     private String errorCode;
     private String errorDescription;
