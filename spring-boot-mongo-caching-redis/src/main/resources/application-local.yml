@@ -10,6 +10,7 @@ spring:
   data:
     redis:
       url: redis://localhost:6379
+#      host: redis://localhost
 #      password: ${REDIS_KEY}
 #      port: ${REDIS_PORT}
       ssl:
