@@ -1,0 +1,24 @@
+server:
+  port: 8085
+#  servlet.context-path: /registration-api
+
+application:
+  service-name: security-registration-svc
+
+spring:
+  application.name: spring security registration
+  datasource:
+    url: jdbc:postgresql://localhost:5432/sysperson
+    username: postgres
+    password: 123456
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      connection-test-query: SELECT 1
+      minimum-idle: 20
+      maximum-pool-size: 200
+      pool-name: securityRegistrationSvcPool
+      auto-commit: false
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+
