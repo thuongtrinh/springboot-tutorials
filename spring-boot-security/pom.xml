@@ -10,7 +10,7 @@
 
     <modules>
         <module>spring-authorization-server</module>
-        <module>spring-security-registration</module>     
+        <module>spring-security-registration</module>
     </modules>
 
 </project>
