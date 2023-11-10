@@ -33,7 +33,13 @@ public class Users implements Serializable {
     private String birthdate;
 
     @Column
-    private Boolean enabled;
+    private String password;
+
+    @Column
+    private boolean enabled;
+
+    @Column
+    private boolean isUsing2FA;
 
     @Override
     public String toString() {

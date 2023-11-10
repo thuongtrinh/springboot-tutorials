@@ -5,4 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface GroupRespository extends CrudRepository<Groups, Long> {
 
+    Groups findFirstByGroupName(String groupName);
+
 }
