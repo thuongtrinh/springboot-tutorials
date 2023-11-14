@@ -20,6 +20,8 @@ class CustomUser extends AbstractUserAdapter {
     private final String firstName;
     private final String lastName;
     private final Date birthDate;
+    private final Boolean emailVerified;
+    private final Boolean enabled;
 
     private CustomUser(KeycloakSession session, RealmModel realm,
                        ComponentModel storageProviderModel,
@@ -27,14 +29,17 @@ class CustomUser extends AbstractUserAdapter {
                        String email,
                        String firstName,
                        String lastName,
-                       Date birthDate) {
+                       Date birthDate,
+                       Boolean emailVerified,
+                       Boolean enabled) {
         super(session, realm, storageProviderModel);
         this.username = username;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
-
+        this.emailVerified = emailVerified;
+        this.enabled = enabled;
     }
 
     @Override
@@ -57,9 +62,27 @@ class CustomUser extends AbstractUserAdapter {
         return email;
     }
 
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    @Override
+    public boolean isEmailVerified() {
+        return emailVerified;
+    }
+
     public Date getBirthDate() {
         return birthDate;
     }
+
+   /* public Boolean getEmailVerified() {
+        return emailVerified;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }*/
 
     @Override
     public Map<String, List<String>> getAttributes() {
@@ -68,6 +91,8 @@ class CustomUser extends AbstractUserAdapter {
         attributes.add(UserModel.EMAIL, getEmail());
         attributes.add(UserModel.FIRST_NAME, getFirstName());
         attributes.add(UserModel.LAST_NAME, getLastName());
+        attributes.add(UserModel.EMAIL_VERIFIED, String.valueOf(isEmailVerified()));
+        attributes.add(UserModel.ENABLED, String.valueOf(isEnabled()));
         attributes.add("birthDate", getBirthDate().toString());
         return attributes;
     }
@@ -81,6 +106,8 @@ class CustomUser extends AbstractUserAdapter {
         private String firstName;
         private String lastName;
         private Date birthDate;
+        private Boolean emailVerified;
+        private Boolean enabled;
 
         Builder(KeycloakSession session, RealmModel realm, ComponentModel storageProviderModel, String username) {
             this.session = session;
@@ -109,6 +136,16 @@ class CustomUser extends AbstractUserAdapter {
             return this;
         }
 
+        Builder emailVerified(Boolean emailVerified) {
+            this.emailVerified = emailVerified;
+            return this;
+        }
+
+        Builder enabled(Boolean enabled) {
+            this.enabled = enabled;
+            return this;
+        }
+
         CustomUser build() {
             return new CustomUser(
                     session,
@@ -118,7 +155,9 @@ class CustomUser extends AbstractUserAdapter {
                     email,
                     firstName,
                     lastName,
-                    birthDate);
+                    birthDate,
+                    emailVerified,
+                    enabled);
 
         }
     }
