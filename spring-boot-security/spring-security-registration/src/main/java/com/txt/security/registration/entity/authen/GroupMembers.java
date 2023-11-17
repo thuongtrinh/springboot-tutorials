@@ -1,9 +1,6 @@
 package com.txt.security.registration.entity.authen;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,13 +21,14 @@ public class GroupMembers implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column
     private String username;
 
     @Column(name = "group_id")
-    private String groupId;
+    private Long groupId;
 
     @Override
     public String toString() {

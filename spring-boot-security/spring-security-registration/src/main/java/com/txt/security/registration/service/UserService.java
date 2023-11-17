@@ -2,8 +2,10 @@ package com.txt.security.registration.service;
 
 import com.txt.security.registration.dto.RegistrationRequest;
 import com.txt.security.registration.dto.authen.UserDTO;
+import com.txt.security.registration.entity.authen.Users;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
 
@@ -15,5 +17,10 @@ public interface UserService {
 
     UserDTO getUserByUsername(String username);
 
-    boolean registration(RegistrationRequest registrationRequest);
+    Users registration(RegistrationRequest registrationRequest);
+
+    Users findUserByEmail(String email);
+
+    void addUserLocation(Users user, String ip);
+
 }

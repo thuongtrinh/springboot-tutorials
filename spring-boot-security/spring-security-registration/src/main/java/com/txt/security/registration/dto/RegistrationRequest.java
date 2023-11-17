@@ -19,6 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@PasswordMatches
 public class RegistrationRequest implements Serializable {
 
     @NotEmpty
@@ -42,7 +43,6 @@ public class RegistrationRequest implements Serializable {
     private String password;
 
     @NotEmpty
-    @PasswordMatches
     private String matchPassword;
 
     private boolean isUsing2FA;

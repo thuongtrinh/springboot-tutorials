@@ -32,10 +32,14 @@ public class SecurityConfig {
         http.sessionManagement(c -> c.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         http.authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("api/v1/**")
-                .hasAnyAuthority(RoleConstant.allowAccessProcessInstanceApiRoles())
+//                .requestMatchers("api/v1/**")
+//                .hasAnyAuthority(RoleConstant.allowAccessProcessInstanceApiRoles())
                 .requestMatchers("/swagger-resources/**", "/swagger-ui/**",
-                        "/v3/api-docs/**", "/swagger-ui.html", "/actuator/**")
+                        "/v3/api-docs/**", "/swagger-ui.html", "/actuator/**",
+                        "/api/v1/auth/**"//,
+//                        "/api/v1/auth/registration-confirm", "/api/v1/auth/user/reset-password",
+//                        "/api/v1/auth/user/resend-registration-token"
+                )
                 .permitAll()
                 .anyRequest().permitAll());
         http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);

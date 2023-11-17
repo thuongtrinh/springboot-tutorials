@@ -4,8 +4,8 @@ import java.util.stream.Stream;
 
 public enum RoleConstant {
 
-    SYS_ADMIN("SYS-Admin", "SYS Admin"),
-    SYS_USER("SYS-User", "SYS User");
+    SYS_ADMIN("SYS-ADMIN", "SYS Admin"),
+    SYS_USER("SYS-USER", "SYS User");
 
     public final String code;
     public final String name;

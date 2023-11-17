@@ -21,4 +21,22 @@ spring:
       connection-timeout: 30000
       idle-timeout: 600000
       max-lifetime: 1800000
+  mail:
+    host: smtp.gmail.com
+    port: 465
+    protocol: smtps
+    username: username
+    password: password
+    properties:
+      mail:
+        transport.protocol: smtps
+        smtps:
+          auth: true
+          starttls.enable: true
+          timeout: 8000
 
+support:
+  email: email@example.com
+
+#Feature toggle for geo ip lib
+geo.ip.lib.enabled: true

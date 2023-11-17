@@ -35,7 +35,7 @@ public class GroupServiceImpl implements GroupService {
         List<GroupMembers> groupMembers = groupMembersRespository.findAllByUsername(username);
 
         if (ObjectUtils.isNotEmpty(groupMembers)) {
-            List<String> groupIds = groupMembers.stream()
+            List<Long> groupIds = groupMembers.stream()
                     .map(groupMember -> groupMember.getGroupId())
                     .collect(Collectors.toList());
 
