@@ -65,6 +65,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                 || url.contains("swagger-resources")
                 || url.contains("v3/api-docs")
                 || url.contains("actuator")
-                || url.contains("/api/v1/auth/registration");
+                || url.contains("/api/v1/auth/registration")
+                || url.contains("/api/v1/auth/");
     }
 }

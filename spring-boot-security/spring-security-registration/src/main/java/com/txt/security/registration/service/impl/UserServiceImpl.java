@@ -113,7 +113,7 @@ public class UserServiceImpl implements UserService {
         user.setFirstname(request.getFirstname());
         user.setLastname(request.getLastname());
         user.setPassword(request.getPassword());
-        user.setBirthdate(DateUtil.parseDate(request.getBirthdate(), DateUtil.YYYY_MM_DD_2));
+        user.setBirthdate(DateUtil.parseDate(request.getBirthdate(), DateUtil.YYYY_MM_DD));
         user.setEmail(request.getEmail());
         user.setUsing2FA(request.isUsing2FA());
         user.setEnabled(Boolean.FALSE);

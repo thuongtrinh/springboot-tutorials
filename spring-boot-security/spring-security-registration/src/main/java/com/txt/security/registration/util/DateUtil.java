@@ -13,7 +13,7 @@ import java.util.Date;
 public class DateUtil {
 
     public static final String DD_MM_YYYY = "dd/MM/yyyy";
-    public static final String YYYY_MM_DD_2 = "yyyy-MM-dd";
+    public static final String YYYY_MM_DD = "yyyy-MM-dd";
     public static final String YYYYMMDD = "yyyyMMdd";
     public static final String DD_MM_YYYY_HH_MM_SS = "dd/MM/yyyy HH:mm:ss";
 

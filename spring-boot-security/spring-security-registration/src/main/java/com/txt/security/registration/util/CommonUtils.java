@@ -21,6 +21,9 @@ public class CommonUtils {
         }
         return xfHeader.split(",")[0];
         */
+
+        // return "128.101.101.101"; // for testing United States
+        // return "41.238.0.198"; // for testing Egypt
         return "2402:800:63a7:d5e6:b9d5:9802:86f6:ed9"; // for testing VN
     }
 
