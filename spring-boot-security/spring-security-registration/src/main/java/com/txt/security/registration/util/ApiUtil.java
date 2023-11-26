@@ -3,6 +3,7 @@ package com.txt.security.registration.util;
 import com.txt.security.registration.dto.common.APIResponseDTO;
 import com.txt.security.registration.dto.common.MessageCode;
 import com.txt.security.registration.dto.common.APIMultipleResponseDTO;
+import com.txt.security.registration.dto.common.ResponseCode;
 import org.springframework.http.HttpStatus;
 
 import java.util.List;
@@ -146,6 +147,13 @@ public class ApiUtil {
         APIResponseDTO<T> APIResponseDTO = new APIResponseDTO<>();
         APIResponseDTO.setMessage(message);
         APIResponseDTO.setCode(getResponseCode(serviceName, HttpStatus.INTERNAL_SERVER_ERROR, detailCode));
+        return APIResponseDTO;
+    }
+
+    public static <T> APIResponseDTO<T> status(String serviceName, ResponseCode responseCode) {
+        APIResponseDTO<T> APIResponseDTO = new APIResponseDTO<>();
+        APIResponseDTO.setMessage(responseCode.getMessage());
+        APIResponseDTO.setCode(responseCode.getCode());
         return APIResponseDTO;
     }
 

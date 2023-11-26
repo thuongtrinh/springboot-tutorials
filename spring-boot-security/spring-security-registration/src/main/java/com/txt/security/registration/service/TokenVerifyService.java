@@ -1,5 +1,6 @@
 package com.txt.security.registration.service;
 
+import com.txt.security.registration.common.ResultDTO;
 import com.txt.security.registration.entity.authen.Users;
 import com.txt.security.registration.entity.authen.VerificationToken;
 
@@ -9,7 +10,7 @@ public interface TokenVerifyService {
 
     VerificationToken createVerificationTokenForUser(Users user, String token);
 
-    VerificationToken validateVerificationToken(String token);
+    ResultDTO<VerificationToken> validateVerificationToken(String token);
 
     void createPasswordResetTokenForUser(Users user, String token);
 
@@ -21,7 +22,7 @@ public interface TokenVerifyService {
 
     boolean checkIfValidOldPassword(Users user, String oldPassword);
 
-    VerificationToken generateNewVerificationToken(String token, String existingToken);
+    VerificationToken generateNewVerificationToken(String token);
 
     Users getUserFromVerificationToken(String token);
 }

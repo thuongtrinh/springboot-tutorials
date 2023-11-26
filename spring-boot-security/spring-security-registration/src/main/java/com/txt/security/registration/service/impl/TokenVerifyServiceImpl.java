@@ -1,6 +1,9 @@
 package com.txt.security.registration.service.impl;
 
 import com.txt.security.registration.common.Constants;
+import com.txt.security.registration.common.ResultDTO;
+import com.txt.security.registration.dto.common.MessageCode;
+import com.txt.security.registration.dto.common.ResponseCode;
 import com.txt.security.registration.entity.authen.*;
 import com.txt.security.registration.repository.*;
 import com.txt.security.registration.service.GroupService;
@@ -40,7 +43,8 @@ public class TokenVerifyServiceImpl implements TokenVerifyService {
     }
 
     @Override
-    public VerificationToken validateVerificationToken(String token) {
+    public ResultDTO<VerificationToken> validateVerificationToken(String token) {
+        ResultDTO<VerificationToken> resultDTO = new ResultDTO<>();
         VerificationToken verificationToken = verificationTokenRepository.findByToken(token);
         if (ObjectUtils.isEmpty(verificationToken) || !Constants.TOKEN_STATUS.ACTIVE.equals(verificationToken.getStatus())) {
             log.warn("Token Verification not found {}", token);
@@ -54,7 +58,9 @@ public class TokenVerifyServiceImpl implements TokenVerifyService {
             if(verificationToken.getUser().getEnabled()) {
                 verificationTokenRepository.delete(verificationToken);
             }
-            return null;
+
+            resultDTO.setStatus(new MessageCode(ResponseCode.MS001));
+            return resultDTO;
         }
 
         user.setEnabled(true);
@@ -65,7 +71,8 @@ public class TokenVerifyServiceImpl implements TokenVerifyService {
         verificationToken.setStatus(Constants.TOKEN_STATUS.DONE);
         verificationTokenRepository.save(verificationToken);
 
-        return verificationToken;
+        resultDTO.setBody(verificationToken);
+        return resultDTO;
     }
 
     @Override
@@ -101,31 +108,23 @@ public class TokenVerifyServiceImpl implements TokenVerifyService {
     }
 
     @Override
-    public VerificationToken generateNewVerificationToken(String token, String email) {
+    public VerificationToken generateNewVerificationToken(String token) {
         VerificationToken verificationToken = verificationTokenRepository.findByToken(token);
 
-        Users user;
         if (ObjectUtils.isEmpty(verificationToken)) {
-            user = userService.findUserByEmail(email);
-        } else {
-            user = verificationToken.getUser();
+            log.warn("Not found pair of user and token - verification {}", token);
+            return null;
         }
 
-        if (ObjectUtils.isEmpty(user) || !user.getEmail().equals(email)) {
-            log.warn("Not found pair of user and token - verification {}, {}", email, token);
-            return null;
-        } else if (user.getEnabled()) {
-            log.warn("This user has verified: {} ", email);
+        Users user = verificationToken.getUser();
+        if (user.getEnabled()) {
+            log.warn("This user has verified: {} ", user.getEmail());
             return null;
         }
 
         String newToken = UUID.randomUUID().toString();
-        if (ObjectUtils.isEmpty(verificationToken)) {
-            verificationToken = createVerificationTokenForUser(user, newToken);
-        } else {
-            verificationToken.updateToken(newToken);
-            verificationToken = verificationTokenRepository.save(verificationToken);
-        }
+        verificationToken.updateToken(newToken);
+        verificationToken = verificationTokenRepository.save(verificationToken);
 
         return verificationToken;
     }

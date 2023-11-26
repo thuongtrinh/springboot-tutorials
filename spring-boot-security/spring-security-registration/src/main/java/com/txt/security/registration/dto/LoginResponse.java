@@ -1,9 +1,6 @@
 package com.txt.security.registration.dto;
 
-import com.txt.security.registration.validation.PasswordMatches;
 import com.txt.security.registration.validation.ValidPassword;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,21 +12,13 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@PasswordMatches
-public class PasswordRequest {
+public class LoginResponse {
 
-    @NotBlank
-    private String token;
-
-    @NotBlank
-    private String oldPassword;
-
-    @NotEmpty
-    @ValidPassword
-    private String password;
-
-    @NotBlank
-    private String matchPassword;
+    private String access_token;
+    private String expires_in;
+    private String refresh_expires_in;
+    private String refresh_token;
+    private String token_type;
 
     @Override
     public String toString() {

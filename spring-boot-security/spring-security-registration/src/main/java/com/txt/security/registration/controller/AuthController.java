@@ -1,12 +1,15 @@
 package com.txt.security.registration.controller;
 
+import com.txt.security.registration.common.ResultDTO;
 import com.txt.security.registration.common.component.ApiController;
+import com.txt.security.registration.dto.LoginRequest;
+import com.txt.security.registration.dto.LoginResponse;
 import com.txt.security.registration.dto.PasswordRequest;
 import com.txt.security.registration.dto.RegistrationRequest;
 import com.txt.security.registration.dto.common.APIResponseDTO;
+import com.txt.security.registration.dto.common.ResponseCode;
 import com.txt.security.registration.entity.authen.Users;
 import com.txt.security.registration.entity.authen.VerificationToken;
-import com.txt.security.registration.exception.InvalidOldPasswordException;
 import com.txt.security.registration.listener.OnRegistrationCompleteEvent;
 import com.txt.security.registration.service.EmailService;
 import com.txt.security.registration.service.GroupService;
@@ -14,6 +17,7 @@ import com.txt.security.registration.service.TokenVerifyService;
 import com.txt.security.registration.service.UserService;
 import com.txt.security.registration.util.ApiUtil;
 import com.txt.security.registration.util.CommonUtils;
+import com.txt.security.registration.util.JwtUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,12 +25,12 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
@@ -53,6 +57,22 @@ public class AuthController extends ApiController {
         List<String> responseData = groupService.getRolesByUserGroups(username);
         APIResponseDTO<List<String>> responseDTO = ApiUtil.status200(serviceName, responseData);
         return ResponseEntity.ok(responseDTO);
+    }
+
+    @PostMapping(value = "login", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Login account")
+    public ResponseEntity<APIResponseDTO<?>> loginAccount(@RequestBody @Valid final LoginRequest loginRequest, final HttpServletRequest request) {
+        APIResponseDTO<LoginResponse> responseDTO;
+        try {
+            LoginResponse loginResponse = userService.login(loginRequest);
+            responseDTO = ApiUtil.status200(serviceName, loginResponse);
+            return ResponseEntity.ok(responseDTO);
+        } catch (Exception e) {
+            log.error("ERROR while registrationAccount with message: {}", e.getLocalizedMessage());
+            e.printStackTrace();
+            responseDTO = ApiUtil.status500(serviceName, e.getMessage());
+            return new ResponseEntity<>(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PostMapping(value = "registration", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -83,13 +103,16 @@ public class AuthController extends ApiController {
             Locale locale = request.getLocale();
             System.out.println(locale);
 
-            VerificationToken result = tokenVerifyService.validateVerificationToken(token);
-            if (ObjectUtils.isEmpty(result)) {
+            ResultDTO<VerificationToken> result = tokenVerifyService.validateVerificationToken(token);
+            if (ObjectUtils.isEmpty(result.getBody()) && ObjectUtils.isEmpty(result.getStatus())) {
                 responseDTO = ApiUtil.status500(serviceName, messages.getMessage("token.message.invalid", null, locale));
+                return new ResponseEntity<>(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+            } else if (ObjectUtils.isNotEmpty(result.getStatus()) && ResponseCode.MS001.getCode().equals(result.getStatus().getCode())) {
+                responseDTO = ApiUtil.status(serviceName, ResponseCode.MS001);
                 return new ResponseEntity<>(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
             }
 
-            Users user = result.getUser();
+            Users user = result.getBody().getUser();
             log.info("registration-confirm success user {}", user);
             responseDTO = ApiUtil.status200(serviceName, true);
             return ResponseEntity.ok(responseDTO);
@@ -101,7 +124,7 @@ public class AuthController extends ApiController {
         }
     }
 
-    @PostMapping("/user/reset-password")
+    @PostMapping("/reset-password")
     public ResponseEntity<APIResponseDTO<?>> resetPassword(final HttpServletRequest request, @RequestParam("email") final String userEmail) {
         APIResponseDTO<?> responseDTO;
         try {
@@ -124,7 +147,7 @@ public class AuthController extends ApiController {
         }
     }
 
-    @PostMapping("/user/save-password")
+    @PostMapping("/save-password")
     @Operation(summary = "Save password")
     public ResponseEntity<APIResponseDTO<?>> savePassword(final Locale locale, @RequestBody @Valid PasswordRequest passwordRequest) {
         APIResponseDTO<?> responseDTO;
@@ -140,7 +163,7 @@ public class AuthController extends ApiController {
                 return new ResponseEntity<>(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
             }
 
-            tokenVerifyService.changeUserPassword(user.get(), passwordRequest.getNewPassword());
+            tokenVerifyService.changeUserPassword(user.get(), passwordRequest.getPassword());
             responseDTO = ApiUtil.status200(serviceName, true);
             return ResponseEntity.ok(responseDTO);
         } catch (Exception e) {
@@ -151,16 +174,24 @@ public class AuthController extends ApiController {
         }
     }
 
-    @PostMapping("/user/update-password")
-    public ResponseEntity<APIResponseDTO<?>> updatePassword(final Locale locale, @Valid PasswordRequest passwordDto) {
+    @PostMapping("/update-password")
+    public ResponseEntity<APIResponseDTO<?>> updatePassword(final Locale locale, @RequestBody @Valid PasswordRequest passwordDto,
+                                                            @RequestHeader(value = "Authorization", required = false) String bearerToken) {
         APIResponseDTO<?> responseDTO;
         try {
-            final Users user = userService.findUserByEmail(((Users) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getEmail());
-            if (!tokenVerifyService.checkIfValidOldPassword(user, passwordDto.getOldPassword())) {
-                throw new InvalidOldPasswordException();
+            String username = JwtUtil.getEmail(bearerToken);
+            if(StringUtils.isBlank(username)) {
+                responseDTO = ApiUtil.status500(serviceName, "Token error");
+                return new ResponseEntity<>(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
             }
 
-            tokenVerifyService.changeUserPassword(user, passwordDto.getNewPassword());
+            final Users user = userService.findUserByUsername(username);
+            if (!tokenVerifyService.checkIfValidOldPassword(user, passwordDto.getOldPassword())) {
+                responseDTO = ApiUtil.status500(serviceName, "InvalidOldPasswordException");
+                return new ResponseEntity<>(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+
+            tokenVerifyService.changeUserPassword(user, passwordDto.getPassword());
             responseDTO = ApiUtil.status200(serviceName, true);
             return ResponseEntity.ok(responseDTO);
         } catch (Exception e) {
@@ -171,13 +202,12 @@ public class AuthController extends ApiController {
         }
     }
 
-    @GetMapping("/user/resend-registration-token")
+    @GetMapping("/resend-registration-token")
     public ResponseEntity<APIResponseDTO<?>> resendRegistrationToken(final HttpServletRequest request,
-                                                                     @RequestParam("token") final String existingToken ,
-                                                                     @RequestParam("email") final String email) {
+                                                                     @RequestParam("token") final String existingToken) {
         APIResponseDTO<?> responseDTO;
         try {
-            final VerificationToken newToken = tokenVerifyService.generateNewVerificationToken(existingToken, email);
+            final VerificationToken newToken = tokenVerifyService.generateNewVerificationToken(existingToken);
             if (ObjectUtils.isEmpty(newToken)) {
                 responseDTO = ApiUtil.status500(serviceName, messages.getMessage("token.message.invalid", null, request.getLocale()));
                 return new ResponseEntity<>(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);

@@ -1,5 +1,7 @@
 package com.txt.security.registration.service;
 
+import com.txt.security.registration.dto.LoginRequest;
+import com.txt.security.registration.dto.LoginResponse;
 import com.txt.security.registration.dto.RegistrationRequest;
 import com.txt.security.registration.dto.authen.UserDTO;
 import com.txt.security.registration.entity.authen.Users;
@@ -21,6 +23,9 @@ public interface UserService {
 
     Users findUserByEmail(String email);
 
+    Users findUserByUsername(String username);
+
     void addUserLocation(Users user, String ip);
 
+    LoginResponse login(LoginRequest loginRequest);
 }

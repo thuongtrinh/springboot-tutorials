@@ -40,3 +40,16 @@ support:
 
 #Feature toggle for geo ip lib
 geo.ip.lib.enabled: true
+
+auth:
+  realms: syspro
+  grant_type: password
+  client_id: registration_client
+  client_secret: PwpnXbSjMJbpF5b2127yVwApDbKV9FxS
+
+apis:
+  auth-server:
+    get-token: http://localhost:8083/auth/realms/${auth.realms}/protocol/openid-connect/token
+
+urls:
+  fe-host-path: http://localhost:4200

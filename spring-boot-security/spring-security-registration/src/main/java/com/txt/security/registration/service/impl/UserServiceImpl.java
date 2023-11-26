@@ -2,6 +2,8 @@ package com.txt.security.registration.service.impl;
 
 import com.maxmind.geoip2.DatabaseReader;
 import com.txt.security.registration.common.RoleConstant;
+import com.txt.security.registration.dto.LoginRequest;
+import com.txt.security.registration.dto.LoginResponse;
 import com.txt.security.registration.dto.RegistrationRequest;
 import com.txt.security.registration.dto.authen.UserDTO;
 import com.txt.security.registration.entity.authen.*;
@@ -14,13 +16,20 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.env.Environment;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.util.ObjectUtils;
+import org.springframework.web.client.RestTemplate;
 
 import java.net.InetAddress;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -35,10 +44,20 @@ public class UserServiceImpl implements UserService {
     private final UserLocationRepository userLocationRepository;
     private final VerificationTokenRepository verificationTokenRepository;
     private final PasswordResetTokenRepository passwordResetTokenRepository;
+    private final RestTemplate restTemplate;
 
     @Autowired
     @Qualifier("GeoIPCountry")
     private DatabaseReader databaseReader;
+
+    @Value("${auth.grant_type}")
+    private String grantType;
+
+    @Value("${auth.client_id}")
+    private String clientId;
+
+    @Value("${auth.client_secret}")
+    private String clientSecret;
 
 
     @Override
@@ -139,6 +158,15 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+    @Override
+    public Users findUserByUsername(String username) {
+        List<Users> listUser = userRepository.findByUsername(username);
+        if (!ObjectUtils.isEmpty(listUser)) {
+            return listUser.get(0);
+        }
+        return null;
+    }
+
     public void addUserLocation(Users user, String ip) {
         if (!isGeoIpLibEnabled()) {
             return;
@@ -163,6 +191,40 @@ public class UserServiceImpl implements UserService {
         } catch (final Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public LoginResponse login(LoginRequest loginRequest) {
+        String url = String.format(Objects.requireNonNull(env.getProperty("apis.auth-server.get-token")));
+        ResponseEntity<LoginResponse> response;
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<?> httpEntity;
+
+        MultiValueMap<String, String> dataAuthMap= new LinkedMultiValueMap<>();
+        dataAuthMap.add("grant_type", grantType);
+        dataAuthMap.add("client_id", clientId);
+        dataAuthMap.add("client_secret", clientSecret);
+        dataAuthMap.add("username", loginRequest.getUsername());
+        dataAuthMap.add("password", loginRequest.getPassword());
+
+        log.info("QueryProcessInstances URL internal API --> {} requestDTO {} ", url, dataAuthMap);
+
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        httpEntity = new HttpEntity<>(dataAuthMap, headers);
+        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(dataAuthMap, headers);
+
+//        ResponseEntity<String> response = restTemplate.postForEntity( url, request , String.class );
+        response = restTemplate.exchange(
+                url,
+                HttpMethod.POST,
+                httpEntity,
+                new ParameterizedTypeReference<>() {
+                });
+
+        if (Objects.nonNull(response.getBody()) && Objects.nonNull(response.getBody())) {
+            return response.getBody();
+        }
+        return null;
     }
 
     private boolean usernameExists(String username) {
