@@ -27,7 +27,7 @@ public class ElasticsearchController {
 
 
     @PostMapping(path = "/elasticearch/test", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(description = "Create Online Payment Submission")
+    @Operation(description = "Create Submission")
     public ResponseEntity<?> submissionOnlinePayment(
             @RequestBody RequestDTO responseDto,
             @RequestHeader(value = "Authorization", required = false) String bearerToken) {
