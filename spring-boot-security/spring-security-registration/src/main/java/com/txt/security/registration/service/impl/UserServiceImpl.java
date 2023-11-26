@@ -42,8 +42,6 @@ public class UserServiceImpl implements UserService {
     private final GroupMembersRespository groupMembersRespository;
     private final GroupRespository groupRespository;
     private final UserLocationRepository userLocationRepository;
-    private final VerificationTokenRepository verificationTokenRepository;
-    private final PasswordResetTokenRepository passwordResetTokenRepository;
     private final RestTemplate restTemplate;
 
     @Autowired

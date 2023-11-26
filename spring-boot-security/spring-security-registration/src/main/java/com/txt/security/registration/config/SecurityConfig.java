@@ -36,9 +36,10 @@ public class SecurityConfig {
 //                .hasAnyAuthority(RoleConstant.allowAccessProcessInstanceApiRoles())
                 .requestMatchers("/swagger-resources/**", "/swagger-ui/**",
                         "/v3/api-docs/**", "/swagger-ui.html", "/actuator/**",
-                        "/api/v1/auth/**"//,
-//                        "/api/v1/auth/registration-confirm", "/api/v1/auth/user/reset-password",
-//                        "/api/v1/auth/user/resend-registration-token"
+                        "/api/v1/auth/login",
+                        "/api/v1/auth/registration",
+                        "/api/v1/auth/registration-confirm",
+                        "/api/v1/auth/resend-registration-token"
                 )
                 .permitAll()
                 .anyRequest().permitAll());
