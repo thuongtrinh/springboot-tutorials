@@ -11,10 +11,10 @@ import { AuthService } from 'src/app/services/Auth.service';
   styleUrls: ['./forget-password.component.css'],
 })
 export class ForgetPasswordComponent implements OnInit {
+
   errorMsg = '';
 
-  constructor(private router: Router, 
-      private authService: AuthService) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   forgetPassForm = new FormGroup({
     email: new FormControl(),

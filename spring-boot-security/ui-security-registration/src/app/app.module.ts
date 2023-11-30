@@ -13,7 +13,9 @@ import { ForgetPasswordComponent } from './components/forget-password/forget-pas
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { InformSuccessComponent } from './components/inform-success/inform-success.component';
 import { InformErrorComponent } from './components/inform-error/inform-error.component';
-
+import { HeaderComponent } from './components/header/header.component';
+import { SharedModule } from './shared/shared/shared.module';
+import { httpInterceptorProviders } from './interceptors';
 
 @NgModule({
   declarations: [
@@ -25,16 +27,20 @@ import { InformErrorComponent } from './components/inform-error/inform-error.com
     UpdatePasswordComponent,
     ForgetPasswordComponent,
     InformSuccessComponent,
-    InformErrorComponent
+    InformErrorComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    AppRoutingModule 
+    AppRoutingModule,
+    SharedModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    httpInterceptorProviders
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

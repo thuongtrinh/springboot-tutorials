@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Registration } from '../models/Registration';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { PasswordUpdate } from '../models/PasswordUpdate';
 import { AuthUser } from '../models/AuthUser';
 import { Login } from '../models/Login';
-import { Token } from '@angular/compiler';
 import { ApiResponse } from '../models/common/ApiResponse';
 import { AccessToken } from '../models/AccessToken';
 
@@ -15,6 +14,22 @@ import { AccessToken } from '../models/AccessToken';
 export class AuthService {
 
   constructor(private http: HttpClient) { }
+
+  setloggedIn(tokenResponse: AccessToken) {
+    console.log(tokenResponse)
+
+    localStorage.setItem('isloggedIn', "true");
+    localStorage.setItem('access_token', tokenResponse.access_token);
+    localStorage.setItem('refresh_token', tokenResponse.refresh_token);
+  }
+
+  getLoggedIn() : boolean {
+    return localStorage.getItem("isloggedIn") === "true";
+  }
+
+  getAccessToken(): string {
+    return localStorage.getItem('access_token') || '';
+  }
 
   login(loginData: Login) {
     const httpHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -57,8 +72,9 @@ export class AuthService {
   }
 
   updatePassword(passwordRequest: PasswordUpdate) {
-    const access_token = sessionStorage.getItem('access_token')
-    const httpHeader = new HttpHeaders({ 'Content-Type': 'application/json', Authorization: `Bearer ${access_token}` },);
+    const access_token = localStorage.getItem('access_token')
+    const httpHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
+    // const httpHeader = new HttpHeaders({ 'Content-Type': 'application/json', Authorization: `Bearer ${access_token}` },);
 
     return this.http.post<ApiResponse<any>>(`${environment.urls.auth}/update-password`, passwordRequest, {
       headers: httpHeader,
@@ -72,5 +88,11 @@ export class AuthService {
       headers: httpHeaders,
       responseType: 'json'
     });
+  }
+
+  logoutUser(): void {
+    localStorage.removeItem('isloggedIn');
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
   }
 }

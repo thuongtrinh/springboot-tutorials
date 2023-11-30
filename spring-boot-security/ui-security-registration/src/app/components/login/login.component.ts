@@ -41,10 +41,7 @@ export class LoginComponent implements OnInit {
         console.log('Response OK: ' + response.body);
 
         let token: AccessToken = response.body?.data as unknown as AccessToken;
-        console.log(token)
-
-        sessionStorage.setItem('access_token', token.access_token);
-        sessionStorage.setItem('refresh_token', token.refresh_token);
+        this.authService.setloggedIn(token);
 
         this.router.navigate(['/home']);
       },

@@ -46,6 +46,7 @@ export class UpdatePasswordComponent implements OnInit {
 
     this.authService.updatePassword(updatePass).subscribe(response => {
         console.log('Response OK: ' + response);
+        this.authService.logoutUser()
         this.router.navigate(['/inform-success', InformMessage.SUCCESS_UPDATE_PASS]);
       },
       err => {

@@ -24,7 +24,7 @@ export class InformSuccessComponent implements OnInit {
       this.contentMessage =
         'Send mail reset password successfully, please to mail box click link to update password !';
     } else if (this.messageId == InformMessage.SUCCESS_UPDATE_PASS) {
-      this.contentMessage = 'Update password successfully, please to login !';
+      this.contentMessage = 'Update password successfully, please to';
     }
   }
 }

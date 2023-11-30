@@ -9,11 +9,12 @@ import { UpdatePasswordComponent } from '../components/update-password/update-pa
 import { HomeComponent } from '../components/home/home.component';
 import { InformSuccessComponent } from '../components/inform-success/inform-success.component';
 import { InformErrorComponent } from '../components/inform-error/inform-error.component';
+import { AuthGuardService } from '../services/auth-guard.service';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/login',
+    redirectTo: '/home',
     pathMatch: 'full'
   },
   {
@@ -30,15 +31,17 @@ const routes: Routes = [
   },
   {
     path: 'forget-password',
-    component: ForgetPasswordComponent
+    component: ForgetPasswordComponent,
   },
   {
     path: 'update-password',
-    component: UpdatePasswordComponent
+    component: UpdatePasswordComponent,
+    canActivate: [ AuthGuardService ]
   },
   {
     path: 'home',
-    component: HomeComponent
+    component: HomeComponent,
+    canActivate: [ AuthGuardService ]
   },
   {
     path: 'inform-success/:id',
