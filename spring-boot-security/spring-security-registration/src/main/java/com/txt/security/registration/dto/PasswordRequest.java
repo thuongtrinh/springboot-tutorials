@@ -18,7 +18,6 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @PasswordMatches
 public class PasswordRequest {
 
-    @NotBlank
     private String token;
 
     @NotBlank
