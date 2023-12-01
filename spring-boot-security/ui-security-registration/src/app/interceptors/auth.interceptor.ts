@@ -20,6 +20,12 @@ export class AuthInterceptor implements HttpInterceptor {
       request = request.clone({
         headers: request.headers.set('Authorization', `Bearer ${accessToken}`)
       });
+
+      // let headers = new HttpHeaders()
+      // headers = headers.append('Access-Control-Allow-Origin', '*')
+      // headers = headers.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT')
+      // headers = headers.append('Content-Type', 'application/json')
+      // headers = headers.append('Accept', 'application/json')
     }
 
     return next.handle(request);

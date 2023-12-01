@@ -14,7 +14,7 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
 import { InformSuccessComponent } from './components/inform-success/inform-success.component';
 import { InformErrorComponent } from './components/inform-error/inform-error.component';
 import { HeaderComponent } from './components/header/header.component';
-import { SharedModule } from './shared/shared/shared.module';
+import { SharedModule } from './shared/shared.module';
 import { httpInterceptorProviders } from './interceptors';
 
 @NgModule({
