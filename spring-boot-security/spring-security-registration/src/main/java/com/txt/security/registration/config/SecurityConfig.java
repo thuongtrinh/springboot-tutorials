@@ -47,7 +47,7 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests(authorize -> authorize
 //                .requestMatchers("api/v1/**")
-//                .hasAnyAuthority(RoleConstant.allowAccessProcessInstanceApiRoles())
+//                .hasAnyAuthority(RoleConstant.allowAccessApiWithRoles())
                 .requestMatchers("/swagger-resources/**", "/swagger-ui/**",
                         "/v3/api-docs/**", "/swagger-ui.html", "/actuator/**",
                         "/api/v1/auth/login",

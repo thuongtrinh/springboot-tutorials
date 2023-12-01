@@ -10,23 +10,6 @@ import java.util.List;
 
 public class ApiUtil {
 
-    /**
-     * @param serviceName Short name for the microservice
-     * @param httpStatus  Http status
-     */
-    public static String getResponseCode(String serviceName, HttpStatus httpStatus) {
-        return serviceName.concat("_").concat(String.valueOf(httpStatus.value()));
-    }
-
-    /**
-     * @param serviceName Short name for the microservice
-     * @param httpStatus  Http status
-     * @param detailCode  A detailed short code beginning with 000
-     */
-    public static String getResponseCode(String serviceName, HttpStatus httpStatus, String detailCode) {
-        return serviceName.concat("_").concat(String.valueOf(httpStatus.value())).concat(detailCode);
-    }
-
     public static <T> APIResponseDTO<T> status200(T data) {
         APIResponseDTO<T> APIResponseDTO = new APIResponseDTO<>();
         APIResponseDTO.setData(data);
@@ -67,12 +50,6 @@ public class ApiUtil {
         return PVAStandardMultipleResponse;
     }
 
-    /**
-     * @param serviceName Short name for the microservice
-     * @param httpStatus  Http status
-     * @param message     A human-readable representation of the error.
-     */
-
     public static <T> APIResponseDTO<T> statusError(String serviceName, HttpStatus httpStatus, String message) {
         APIResponseDTO<T> APIResponseDTO = new APIResponseDTO<>();
         APIResponseDTO.setMessage(message);
@@ -80,12 +57,6 @@ public class ApiUtil {
         return APIResponseDTO;
     }
 
-    /**
-     * @param serviceName Short name for the microservice
-     * @param httpStatus  Http status
-     * @param detailCode  A detailed short code beginning with 000
-     * @param message     A human-readable representation of the error.
-     */
     public static <T> APIResponseDTO<T> statusError(String serviceName, HttpStatus httpStatus, String detailCode, String message) {
         APIResponseDTO<T> APIResponseDTO = new APIResponseDTO<>();
         APIResponseDTO.setMessage(message);
@@ -157,4 +128,11 @@ public class ApiUtil {
         return APIResponseDTO;
     }
 
+    public static String getResponseCode(String serviceName, HttpStatus httpStatus) {
+        return serviceName.concat("_").concat(String.valueOf(httpStatus.value()));
+    }
+
+    public static String getResponseCode(String serviceName, HttpStatus httpStatus, String detailCode) {
+        return serviceName.concat("_").concat(String.valueOf(httpStatus.value())).concat(detailCode);
+    }
 }

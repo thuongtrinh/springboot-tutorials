@@ -15,7 +15,7 @@ public enum RoleConstant {
         this.name = name;
     }
 
-    public static String[] allowAccessProcessInstanceApiRoles() {
+    public static String[] allowAccessApiWithRoles() {
         return Stream.of(SYS_USER.code, SYS_ADMIN.code).toArray(String[]::new);
     }
 

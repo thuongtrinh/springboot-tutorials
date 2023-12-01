@@ -202,6 +202,11 @@ public class DateUtil {
         return dtf.format(date);
     }
 
+    public static LocalDateTime toLocalDateTimeUTC(long dateTime) {
+        LocalDateTime localDateTime = Instant.ofEpochMilli(dateTime).atOffset(ZoneOffset.UTC).toLocalDateTime();
+        return localDateTime;
+    }
+
     public static Date addDate(Date date, int numberOfDates) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
