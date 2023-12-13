@@ -1,0 +1,33 @@
+<div class="login-container">
+    <div class="login-content">
+        <h1 class="login-title">Login to OAuth2 Social</h1>
+
+        <div class="social-login">
+            <a class="btn btn-block social-btn google" href="{{VAR_GOOGLE_AUTH_URL}}">
+                <img src="assets/img/google-logo.png" alt="Google" > Log in with Google</a>
+            <a class="btn btn-block social-btn facebook" href="{{VAR_FACEBOOK_AUTH_URL}}">
+                <img src="assets/img/fb-logo.png" alt="Facebook" /> Log in with Facebook</a>
+            <a class="btn btn-block social-btn github" href="{{VAR_GITHUB_AUTH_URL}}">
+                <img src="assets/img/github-logo.png" alt="Github" /> Log in with Github</a>
+        </div>
+        <div class="or-separator">
+            <span class="or-text">OR</span>
+        </div>
+        <div>
+            <form (ngSubmit)="handleSubmit()" [formGroup]="loginForm">
+                <div class="form-item">
+                    <input type="email" name="email" 
+                        class="form-control" placeholder="Email" formControlName="email" required/>
+                </div>
+                <div class="form-item">
+                    <input type="password" name="password" 
+                        class="form-control" placeholder="Password" formControlName="password" required/>
+                </div>
+                <div class="form-item">
+                    <button type="submit" class="btn btn-block btn-primary">Login</button>
+                </div>
+            </form>
+        </div>
+        <span class="signup-link">New user? <a [routerLink]="['/signup']">Sign up!</a></span>
+    </div>
+</div>

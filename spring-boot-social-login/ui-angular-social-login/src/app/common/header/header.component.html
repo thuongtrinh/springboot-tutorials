@@ -1,0 +1,27 @@
+<header class="app-header">
+    <div class="container">
+        <div class="app-branding">
+            <a [routerLink]="['/']" class="app-title">Spring Login with OAuth2 Social</a>
+        </div>
+        <div class="app-options">
+            <nav class="app-nav">
+                <ul *ngIf="authenticated">
+                    <li>
+                        <a [routerLink]="['/profile']">Profile</a>
+                    </li>
+                    <li>
+                        <a href="/" (click)="logout()">Logout</a>
+                    </li>
+                </ul>
+                <ul *ngIf="!authenticated">
+                    <li>
+                        <a [routerLink]="['/login']">Login</a>        
+                    </li>
+                    <li>
+                        <a [routerLink]="['/signup']">Signup</a>        
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
