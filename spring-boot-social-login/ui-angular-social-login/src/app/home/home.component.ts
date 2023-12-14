@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { APIUtils } from '../utils/ApiUtils';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private apiUtils: APIUtils) { }
 
   ngOnInit(): void {
+    this.apiUtils.setAuthenticated(true);
   }
 
 }

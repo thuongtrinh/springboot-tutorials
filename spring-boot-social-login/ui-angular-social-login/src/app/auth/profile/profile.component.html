@@ -2,10 +2,10 @@
   <div class="container">
     <div class="profile-info">
       <div class="profile-avatar">
-        <ng-container *ngIf="currentUser">
-          <img  src={{currentUser.imageUrl}} alt={{currentUser.name}}/>
+        <ng-container *ngIf="currentUser.imageUrl">
+          <img src={{currentUser.imageUrl}} alt={{currentUser.name}}/>
         </ng-container>
-        <ng-container *ngIf="currentUser == undefined">
+        <ng-container *ngIf="!currentUser.imageUrl">
           <div class="text-avatar">
             <span>{{currentUser?.name && currentUser?.name[0]}}</span>
           </div>

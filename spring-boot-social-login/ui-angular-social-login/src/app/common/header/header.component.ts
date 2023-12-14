@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { ACCESS_TOKEN } from 'src/app/constants/api-constant';
 import { APIUtils } from 'src/app/utils/ApiUtils';
 
@@ -10,20 +11,23 @@ import { APIUtils } from 'src/app/utils/ApiUtils';
 })
 export class HeaderComponent implements OnInit {
 
-  public authenticated = false;
+  public authenticated$: Observable<boolean> | undefined;
 
   constructor(private apiUtils: APIUtils, private router: Router) {
+    this.authenticated$ = new BehaviorSubject(false);
+   }
+
+  ngOnInit(): void {
+    this.apiUtils.authenticatedBehavior$.subscribe(auth$ => this.authenticated$ = auth$);
+
     if (localStorage.getItem(ACCESS_TOKEN)) {
       this.apiUtils.getCurrentUser().subscribe(response => {
-        this.authenticated = true;
+        this.apiUtils.setAuthenticated(true);
       },
       error => {
         console.error("Header getCurrentUser error: ", error)
       });
     }
-   }
-
-  ngOnInit(): void {
   }
 
   logout() {

@@ -6,6 +6,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { SignupComponent } from '../auth/signup/signup.component';
 import { ProfileComponent } from '../auth/profile/profile.component';
 import { Oauth2Component } from '../auth/oauth2/oauth2.component';
+import { AuthGuardService } from '../services/auth-guard.service';
 
 const routes: Routes = [
   {
@@ -24,10 +25,12 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
+    canActivate: [ AuthGuardService ]
   },
   {
     path: 'profile',
     component: ProfileComponent,
+    canActivate: [ AuthGuardService ]
   },
   {
     path: 'oauth2/redirect',

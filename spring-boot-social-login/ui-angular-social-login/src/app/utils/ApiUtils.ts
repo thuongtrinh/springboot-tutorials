@@ -4,12 +4,24 @@ import { Login } from '../models/Login';
 import { ApiResponse } from '../models/ApiResponse';
 import { AccessToken } from '../models/AccessToken';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class APIUtils {
-  constructor(private http: HttpClient) {}
+  
+  authenticatedBehavior$: BehaviorSubject<Observable<boolean> | undefined>;
+  authenticated$: Observable<boolean> | undefined;
+
+  constructor(private http: HttpClient) {
+    this.authenticatedBehavior$ = new BehaviorSubject(this.authenticated$);
+  }
+
+  setAuthenticated(auth: boolean) {
+    this.authenticated$ = new BehaviorSubject(auth);
+    this.authenticatedBehavior$.next(this.authenticated$);
+  }
 
   requestHeaders(): HttpHeaders {
     let httpHeader = new HttpHeaders();

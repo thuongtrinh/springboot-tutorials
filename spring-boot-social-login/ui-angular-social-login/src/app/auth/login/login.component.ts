@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
         let token: AccessToken = response.body as unknown as AccessToken;
         this.setloggedIn(token);
         this.toastr.success("You're successfully logged in!");
-        this.router.navigate(['/home']);
+        this.router.navigate(['/profile']);
     },
     error => {
         this.toastr.error("Oops! Something went wrong. Please try again!");

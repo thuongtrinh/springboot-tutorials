@@ -16,10 +16,13 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
 
     this.apiUtils.getCurrentUser().subscribe(response => {
+      this.apiUtils.setAuthenticated(true);
+
       console.log(response)
       this.currentUser = response.body;
     },
     error => {
+      this.apiUtils.setAuthenticated(false);
       console.error("Profile getCurrentUser error: ", error);
       this.router.navigate(['/login']);
     });
