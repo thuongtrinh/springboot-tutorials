@@ -77,3 +77,4 @@ build/
 
 ### VS Code ###
 .vscode/
+**/GeoLite2-City.mmdb
