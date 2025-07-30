@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: project_spring-boot-rest-example
+
+server:
+  port: 8080

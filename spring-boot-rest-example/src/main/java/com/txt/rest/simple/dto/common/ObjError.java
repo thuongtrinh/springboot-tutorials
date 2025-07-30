@@ -10,9 +10,6 @@ import java.util.List;
 @Builder
 @ToString
 public class ObjError {
-    private String objectIdLas;
-    private String programLas;
-    private String functionUI;
     private String errorCode;
     private String errorDescription;
     private String errorTime;

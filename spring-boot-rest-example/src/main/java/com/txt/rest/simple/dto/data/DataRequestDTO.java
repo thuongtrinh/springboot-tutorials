@@ -1,4 +1,4 @@
-package com.txt.rest.simple.dto.common;
+package com.txt.rest.simple.dto.data;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,14 +7,10 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class ObjErrorList {
-
-    private String errorCode;
-    private String errorDescription;
-    private String errorFieldPrefix;
-    private String errorField;
+@AllArgsConstructor
+public class DataRequestDTO {
+    private String data;
 
     @Override
     public String toString() {
