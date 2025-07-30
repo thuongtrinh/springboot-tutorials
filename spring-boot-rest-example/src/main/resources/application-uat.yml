@@ -1,0 +1,19 @@
+spring:
+  profiles:
+    active: uat
+  kafka:
+    producer:
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      bootstrap-servers:
+        - ${KAFKA_SERVICE}
+      transaction-id-prefix: test-tx
+    consumer:
+      group-id: test
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      auto-offset-reset: earliest
+      bootstrap-servers:
+        - ${KAFKA_SERVICE}
+    listener:
+      missing-topics-fatal: false
