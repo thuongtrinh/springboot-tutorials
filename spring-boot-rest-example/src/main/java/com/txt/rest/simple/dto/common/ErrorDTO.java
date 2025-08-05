@@ -9,15 +9,10 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Error implements Serializable {
+public class ErrorDTO implements Serializable {
     private static final long serialVersionUID = 1L;
-    private String code;
-    private String type;
-    private String message;
 
-    public Error code(String code) {
-        this.code = code;
-        return this;
-    }
-
+    private String errorCode;
+    private String errorField;
+    private String errorMessage;
 }

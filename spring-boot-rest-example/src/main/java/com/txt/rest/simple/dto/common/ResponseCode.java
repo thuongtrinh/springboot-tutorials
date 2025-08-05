@@ -4,10 +4,11 @@ import org.apache.commons.lang3.StringUtils;
 
 public enum ResponseCode {
 
-    FAILED("500", "FAILED"),
     SUCCESSFUL("200", "SUCCESS"),
-    API_FAILED("444", "Call API failed"),
-    E001("001", "Request parameter invalid");
+    FAILED("500", "FAILED"),
+    ERROR_001("400", "Request parameter invalid"),
+    ERROR_002("403 ", "Request Forbidden"),
+    ERROR_003("404  ", "Request Not Found");
 
     private final String code;
     private final String description;

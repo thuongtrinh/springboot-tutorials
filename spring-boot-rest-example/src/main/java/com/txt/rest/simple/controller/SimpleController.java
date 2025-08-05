@@ -1,8 +1,11 @@
 package com.txt.rest.simple.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.txt.rest.simple.dto.common.ResponseWithBody;
+import com.txt.rest.simple.constant.Constants;
+import com.txt.rest.simple.dto.common.APIStandardRequestDTO;
+import com.txt.rest.simple.dto.common.APIStandardResponseDTO;
 import com.txt.rest.simple.dto.data.DataRequestDTO;
+import com.txt.rest.simple.utils.APIUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -16,11 +19,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
-import java.util.UUID;
 
 @RestController
-@Tag(name = "SimpleController", description = "Simple Controller API")
+@Tag(name = "Simple Controller", description = "Simple API")
 @Slf4j
 @RequiredArgsConstructor
 public class SimpleController {
@@ -35,23 +36,23 @@ public class SimpleController {
             @ApiResponse(responseCode = "500", description = "Server error")})
     @Operation(description = "simple test API")
     @PostMapping(path = "/simple-test", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResponseWithBody> apiTest(
+    public ResponseEntity<APIStandardResponseDTO> apiTest(
             @RequestHeader(value = "Authorization", required = false) String bearerToken,
-            @RequestBody DataRequestDTO requestDTO) {
+            @RequestBody APIStandardRequestDTO<DataRequestDTO> requestDTO) {
 
-        ResponseWithBody<List<?>> response = new ResponseWithBody<>();
+        APIStandardResponseDTO<?> response = new APIStandardResponseDTO<>();
+        String exchangeId = APIUtils.getExchangeId(requestDTO.getExchangeId());
+        response.setExchangeId(exchangeId);
         try {
             String uri = httpServletRequest.getRequestURI();
-            String exchangeId = UUID.randomUUID().toString();
-            MDC.put("traceId", exchangeId);
-            response.setExchangeId(exchangeId);
+            MDC.put(Constants.TRACK_ID, exchangeId);
+            log.info("URI: {}", httpServletRequest.getRequestURI());
 
-            response.setResponseStatus(null);
+            response.setData(null);
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e) {
             log.error("apiTest has error encountered {}", e.getMessage(), e);
-            response.setResponseStatus(null);
-            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(APIUtils.statusError(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

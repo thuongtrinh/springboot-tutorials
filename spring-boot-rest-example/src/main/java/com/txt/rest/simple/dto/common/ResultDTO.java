@@ -10,10 +10,8 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 public class ResultDTO<T> {
-
     private static final long serialVersionUID = 1L;
 
-    private T body;
+    private T data;
     private ResponseStatus status;
-
 }

@@ -28,18 +28,10 @@ public class RequestDTO implements Serializable {
     private String exchangeId;
 
     @Schema(
-            name = "correlationId",
-            description = "correlation id"
-    )
-    @Size(max = 255, message = "255 characters")
-    @JsonProperty("correlationId")
-    private String correlationId = null;
-
-    @Schema(
             name = "createdBy",
             description = "User who called API"
     )
-    @Size(max = 20, message = "20 characters")
+    @Size(max = 50, message = "50 characters")
     @JsonProperty("createdBy")
     private String createdBy;
 
@@ -49,12 +41,5 @@ public class RequestDTO implements Serializable {
     )
     @JsonProperty("createdDate")
     private String createdDate;
-
-    @Schema(
-            name = "source",
-            description = "source"
-    )
-    @JsonProperty("source")
-    private String source = null;
 
 }
